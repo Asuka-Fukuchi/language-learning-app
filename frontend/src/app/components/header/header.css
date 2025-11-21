@@ -1,0 +1,27 @@
+#logo {
+  width: 60px;
+  height: 60px;
+}
+
+.navigation-items {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  flex: 1;
+  gap: 1rem;
+}
+
+.navigation-items li {
+  display: inline;
+}
+
+.navigation-items a {
+  text-decoration: none;
+}
+
+.navigation-items .right {
+  margin-left: auto
+}

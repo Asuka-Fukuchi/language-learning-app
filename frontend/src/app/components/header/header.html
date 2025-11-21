@@ -1,0 +1,26 @@
+<header>
+    <mat-toolbar color="accent">
+        <nav>
+            <div id="left-menu">
+                <a href="/">
+                    <img src="images/site-logo.jpg" alt="site-logo" id="logo">
+                </a>
+                <!-- <a *ngIf="(currentUser$ | async)?.admin" id="admin" routerLink="/admin">
+                    Admin
+                </a> -->
+            </div>
+
+            <ul class="navigation-items">
+                <li><a mat-button routerLink="/home">Home</a></li>
+                <li><a mat-button routerLink="/mypage">My page</a></li>
+                <li><a mat-button routerLink="/note">Note</a></li>
+                <li><a mat-button routerLink="/quiz">Quiz</a></li>
+                <li class="right">
+                    <a mat-button *ngIf="!isLoggedIn" routerLink="/login">Login</a>
+                    <a mat-button *ngIf="isLoggedIn" (click)="onLogout()">Logout</a>
+                </li>
+                <li><a mat-button routerLink="/register">Register</a></li>
+            </ul>
+        </nav>
+    </mat-toolbar>
+</header>
