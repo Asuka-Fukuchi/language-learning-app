@@ -1,3 +1,19 @@
+.primary-toolbar {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  display: flex;
+  align-items: center;  
+  padding: 0 1rem;      
+  min-height: 64px;     
+  box-sizing: border-box;
+}
+
+.primary-toolbar nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 #logo {
   width: 60px;
   height: 60px;
