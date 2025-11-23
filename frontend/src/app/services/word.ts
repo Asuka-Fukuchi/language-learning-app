@@ -60,6 +60,11 @@ export class WordService {
     return this.http.get<Word[]>(this.apiUrl);
   }
 
+  // Get User's words
+  getUserWords(userId: string): Observable<Word[]> {
+    return this.http.get<Word[]>(`http://localhost:3000/words?creator=${userId}`);
+  }
+
   // Get Single Word by Id
   getWordById(id: string): Observable<Word> {
     return this.http.get<Word>(`${this.apiUrl}/${id}`);
