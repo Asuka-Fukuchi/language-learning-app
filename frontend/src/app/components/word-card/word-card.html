@@ -1,1 +1,9 @@
-<p>word-card works!</p>
+<mat-card class="item" *ngIf="word">
+    <h2>{{ word.word }}</h2>
+    <p>        
+        {{ word.partOfSpeech ?? '' }} <br>
+        {{ word.phoneticSymbols ?? '' }} <br>
+        {{ word.meaning }} <br>
+        {{ word.status }} <br>
+    </p>
+</mat-card>

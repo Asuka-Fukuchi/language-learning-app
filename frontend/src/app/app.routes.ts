@@ -10,7 +10,7 @@ import { EditWord } from './pages/words/edit-word/edit-word';
 import { WordDetail } from './pages/words/word-detail/word-detail';
 
 import { NotesList } from './pages/notes/notes-list/notes-list';
-import { Quiz } from './services/quiz';
+import { Quiz } from './pages/quiz/quiz';
 
 
 export const routes: Routes = [
@@ -26,7 +26,6 @@ export const routes: Routes = [
     { path: 'words/edit/:id', component: EditWord },
 
     { path: 'notes', component: NotesList },
-
     
     { path: 'quiz', component: Quiz }
 ];

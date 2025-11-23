@@ -38,6 +38,14 @@ export interface Word {
   creator: string;
 }
 
+export interface SimpleWordCard {
+  word: string;
+  phoneticSymbols?: string;
+  partOfSpeech?: WordPartOfSpeech;
+  meaning: string;
+  status: WordStatus;
+}
+
 @Injectable({
   providedIn: 'root',
 })
