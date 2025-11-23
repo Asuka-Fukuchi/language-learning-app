@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div class="box">
+    <mat-card-content>
+        <small class="warn-msg" *ngIf="errorMessage">{{ errorMessage }}</small>
+
+        <form class="my-form" [formGroup]="loginForm">
+            <mat-form-field class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="email" name="email" id="email" formControlName="email" required>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="password" name="password" id="password" formControlName="password"
+                    required>
+            </mat-form-field>
+
+            <mat-card-actions>
+                <button mat-raised-button color="primary" type="submit" class="buttonSubmit" (click)="login()"
+                    [disabled]="loginForm.invalid">Login</button>
+            </mat-card-actions>
+
+        </form>
+    </mat-card-content>
+</div>

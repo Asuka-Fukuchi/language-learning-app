@@ -16,8 +16,8 @@
                 <li><a mat-button routerLink="/note">Note</a></li>
                 <li><a mat-button routerLink="/quiz">Quiz</a></li>
                 <li class="right">
-                    <a mat-button *ngIf="!isLoggedIn" routerLink="/login">Login</a>
-                    <a mat-button *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+                    <a mat-button *ngIf="!(currentUser$ | async)" routerLink="/login">Login</a>
+                    <a mat-button *ngIf="currentUser$ | async" (click)="logout()">Logout</a>
                 </li>
                 <li><a mat-button routerLink="/register">Register</a></li>
             </ul>

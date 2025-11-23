@@ -25,12 +25,6 @@ export class Header {
     this.currentUser$ = this.authService.currentUser$;
   }
 
-  ngOnInit(): void { 
-    setInterval(() => {
-      // this.isLoggedIn = this.authService.isLogged;
-    }, 1000);   
-  }
-
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);

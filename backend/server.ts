@@ -5,6 +5,8 @@ import userRoutes from "./routes/user.routes";
 import wordRoutes from "./routes/word.routes";
 import { connectDB } from './db/connect';
 
+console.log("🔥 SERVER TS STARTED");
+
 dotenv.config();                // Load .env first
 const app = express();
 
@@ -15,11 +17,20 @@ app.use(express.json());        // parse JSON bodies
 app.use("/users", userRoutes);
 app.use("/words", wordRoutes);
 
-const PORT = process.env["PORT"] || 3000;
+app.use((req, res, next) => {
+  console.log("REQ:", req.method, req.url);
+  next();
+});
+
+const PORT = Number(process.env["PORT"]) || 3000;
 
 connectDB()
   .then(() => {
-    app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+    console.log("Before app.listen");
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Server running at http://localhost:${PORT}`);
+    });
+    console.log("After app.listen");
   })
   .catch((err) => {
     console.error("DB connect failed:", err);

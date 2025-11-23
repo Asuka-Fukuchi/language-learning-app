@@ -122,7 +122,8 @@ export class Register {
       ...this.newUser,
       firstName,
       lastName,
-      email
+      email,
+      password
     };
 
     this.userService.createUser(this.newUser).subscribe({
@@ -132,7 +133,10 @@ export class Register {
         this.router.navigate(['/home']);
       },
       error: (err) => {
-        this.errorMessage = 'This email is already in use.';
+        // this.errorMessage = 'This email is already in use.';
+        console.error('register error raw:', err);
+  // backend が返すメッセージを優先して表示
+  this.errorMessage = err?.error?.error || err?.error?.message || err?.message || JSON.stringify(err);
         this.cd.detectChanges();
       },
     });
