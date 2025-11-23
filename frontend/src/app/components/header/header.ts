@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { MaterialModule } from '../../material/material/material-module';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth';
+import { User, UserService } from '../../services/user';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +11,19 @@ import { MaterialModule } from '../../material/material/material-module';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
+
 export class Header {
   isLoggedIn: boolean = false;
+
+  currentUser$!: Observable<User | null>;
+
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private userService: UserService
+  ) {
+    this.currentUser$ = this.authService.currentUser$;
+  }
 
   ngOnInit(): void { 
     setInterval(() => {
@@ -16,8 +31,8 @@ export class Header {
     }, 1000);   
   }
 
-  onLogout() {
-    // this.authService.SignOut();
-    // window.location.href = "/home";
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
