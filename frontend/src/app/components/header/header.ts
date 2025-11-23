@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { MaterialModule } from '../../material/material/material-module';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth';
 import { User, UserService } from '../../services/user';
 
 @Component({
   selector: 'app-header',
-  imports: [ MaterialModule ],
+  imports: [ MaterialModule, RouterModule ],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

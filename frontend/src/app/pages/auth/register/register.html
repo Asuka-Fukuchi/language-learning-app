@@ -1,1 +1,42 @@
-<p>register works!</p>
+<div class="box">
+  <mat-card-content>
+    <small class="warn-msg" *ngIf="errorMessage">{{ errorMessage }}</small>
+    
+    <form class="my-form" [formGroup]="registrationForm">
+
+      <mat-form-field class="full-width">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" formControlName="firstName" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" formControlName="lastName" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="email" formControlName="email" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="password" type="password" formControlName="password" required>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput placeholder="confirmPw" type="password" formControlName="confirmPw" required>
+      </mat-form-field>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" class="buttonSubmit" type="submit"
+          (click)="register()"
+          [disabled]="registrationForm.invalid">
+          Register
+        </button>
+      </mat-card-actions>
+
+    </form>
+  </mat-card-content>
+</div>
