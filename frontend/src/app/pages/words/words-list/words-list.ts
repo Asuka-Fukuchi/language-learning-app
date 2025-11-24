@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { MaterialModule } from '../../../material/material/material-module';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Word, WordService } from '../../../services/word';
-import { AuthService } from '../../../services/auth';
+import { Word, WordService } from '../../../services/word.service';
+import { AuthService } from '../../../services/auth.service';
 import { Observable } from 'rxjs';
 
 @Component({

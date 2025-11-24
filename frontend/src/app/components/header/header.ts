@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { MaterialModule } from '../../material/material/material-module';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../services/auth';
-import { User, UserService } from '../../services/user';
+import { AuthService } from '../../services/auth.service';
+import { User, UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',

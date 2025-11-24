@@ -11,9 +11,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../../services/auth';
-import { UserWordList, User, UserService } from '../../../services/user';
-import { Word } from '../../../services/word';
+import { AuthService } from '../../../services/auth.service';
+import { UserWordList, User, UserService } from '../../../services/user.service';
+import { Word } from '../../../services/word.service';
 
 
 @Component({

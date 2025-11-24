@@ -7,7 +7,7 @@ import { Login } from './pages/auth/login/login';
 import { WordsList } from './pages/words/words-list/words-list';
 import { AddWord } from './pages/words/add-word/add-word';
 import { EditWord } from './pages/words/edit-word/edit-word';
-import { WordDetail } from './pages/words/word-detail/word-detail';
+import { WordDetail } from './components/word-detail/word-detail';
 
 import { NotesList } from './pages/notes/notes-list/notes-list';
 import { Quiz } from './pages/quiz/quiz';

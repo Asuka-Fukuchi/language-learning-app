@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MaterialModule } from '../../material/material/material-module';
-import { SimpleWordCard } from '../../services/word';
+import { SimpleWordCard } from '../../services/word.service';
 
 @Component({
   selector: 'app-word-card',
