@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import userRoutes from "./routes/user.routes";
 import wordRoutes from "./routes/word.routes";
+import noteRoutes from "./routes/note.routes";
 import { connectDB } from './db/connect';
 
 console.log("🔥 SERVER TS STARTED");
@@ -14,13 +15,14 @@ const app = express();
 app.use(cors());                // allow browser clients in dev
 app.use(express.json());        // parse JSON bodies
 
-app.use("/users", userRoutes);
-app.use("/words", wordRoutes);
-
 app.use((req, res, next) => {
   console.log("REQ:", req.method, req.url);
   next();
 });
+
+app.use("/users", userRoutes);
+app.use("/words", wordRoutes);
+app.use("/notes", noteRoutes);
 
 const PORT = Number(process.env["PORT"]) || 3000;
 
