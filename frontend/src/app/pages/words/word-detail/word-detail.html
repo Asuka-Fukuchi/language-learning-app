@@ -1,9 +1,27 @@
 <div class="word-detail-container" *ngIf="word">
   <mat-card class="word-card">
+
+    <!-- Header -->
     <mat-card-header>
-      <mat-card-title>
+
+      <mat-card-title class="word-title">
         {{ word.word }}
+
+        <!-- Status Icon -->
+        <mat-icon class="status-icon" [ngClass]="{
+            'perfect': word.status === 'perfect',
+            'almost': word.status === 'almost',
+            'notYet': word.status === 'notYet'
+          }">
+          {{
+          word.status === 'perfect' ? 'check_circle' :
+          word.status === 'almost' ? 'pending' :
+          'cancel'
+          }}
+        </mat-icon>
       </mat-card-title>
+
+      <!-- Subtitle (Word Type) -->
       <mat-card-subtitle *ngIf="word.type === 'word'">
         {{ word.partOfSpeech || '-' }} | {{ word.phoneticSymbols || '-' }}
       </mat-card-subtitle>
@@ -11,37 +29,70 @@
       <mat-card-subtitle *ngIf="word.type !== 'word'">
         {{ word.type }}
       </mat-card-subtitle>
+
     </mat-card-header>
 
+
+    <!-- CONTENT -->
     <mat-card-content>
+
+      <!-- Meaning -->
       <div class="word-info">
         <p><strong>Meaning:</strong> {{ word.meaning }}</p>
         <mat-divider></mat-divider>
-        <p><strong>Synonyms:</strong> <span *ngFor="let s of word.synonyms; let last=last">
-            {{ s }}<span *ngIf="!last">, </span>
-          </span></p>
-        <p><strong>Antonyms:</strong> <span *ngFor="let s of word.antonyms; let last=last">
-            {{ s }}<span *ngIf="!last">, </span>
-          </span></p>
+
+        <!-- Synonyms -->
+        <p><strong>Synonyms:</strong>
+          <ng-container *ngIf="word.synonyms?.length; else none">
+            <span *ngFor="let s of word.synonyms; let last = last">
+              {{ s }}<span *ngIf="!last">, </span>
+            </span>
+          </ng-container>
+          <ng-template #none>-</ng-template>
+        </p>
+
+        <!-- Antonyms -->
+        <p><strong>Antonyms:</strong>
+          <ng-container *ngIf="word.antonyms?.length; else none2">
+            <span *ngFor="let a of word.antonyms; let last = last">
+              {{ a }}<span *ngIf="!last">, </span>
+            </span>
+          </ng-container>
+          <ng-template #none2>-</ng-template>
+        </p>
       </div>
 
+      <!-- Examples -->
       <div class="word-extras">
         <mat-divider></mat-divider>
 
         <h3>Examples</h3>
-        <mat-list>
-          <mat-list-item *ngFor="let ex of word.examples">
+        <ul class="example-list">
+          <li *ngFor="let ex of word.examples">
             {{ ex }}
-          </mat-list-item>
-        </mat-list>
-
-        
+          </li>
+        </ul>
       </div>
+
     </mat-card-content>
 
+
+    <!-- FOOTER ACTIONS -->
     <mat-card-actions class="button-box">
-      <button mat-raised-button color="primary" (click)="goToEdit()">Edit</button>
-      <button mat-stroked-button (click)="router.navigate(['/words'])">Back</button>
+      <button mat-stroked-button (click)="router.navigate(['/words'])">
+        Back
+      </button>
+
+      <button mat-raised-button color="primary" (click)="goToEdit()">
+        Edit
+      </button>
+
+      <!-- Delete Button -->
+      <button mat-raised-button color="warn" (click)="deleteWord()" class="delete-btn">
+        Delete
+      </button>
+
     </mat-card-actions>
+
   </mat-card>
 </div>

@@ -1,35 +1,47 @@
-.word-detail-container {
+.word-title {
   display: flex;
-  justify-content: center;
-  margin: 20px;
-
-  .word-card {
-    width: 100%;
-    max-width: 800px;
-
-    .word-info p {
-      margin: 5px 0;
-    }
-
-    .word-extras {
-      margin-top: 20px;
-
-      h3 {
-        margin-top: 15px;
-        margin-bottom: 5px;
-      }
-
-      mat-chip-list {
-        margin-bottom: 10px;
-      }
-    }
-
-    .button-box {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 10px;
-    }
-  }
+  align-items: center;
+  gap: 8px;
 }
 
+.status-icon {
+  font-size: 26px;
+}
+
+/* Status icon colors */
+.perfect {
+  color: #4caf50;
+  /* green */
+}
+
+.almost {
+  color: #ff9800;
+  /* orange */
+}
+
+.notYet {
+  color: #f44336;
+  /* red */
+}
+
+.button-box {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.word-info p {
+  margin: 8px 0;
+}
+
+.example-list {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.example-list li {
+  margin-bottom: 6px;
+  font-size: 15px;
+  line-height: 1.5;
+}
