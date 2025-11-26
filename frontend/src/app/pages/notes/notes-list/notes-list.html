@@ -9,19 +9,17 @@
   Loading notes...
 </div>
 
-<mat-list *ngIf="!loading && notes.length > 0">
-  <mat-list-item *ngFor="let note of notes" class="note-item" 
-    (click)="goToNoteDetail(note._id!)" style="cursor: pointer;">
+<div class="notes-grid" *ngIf="!loading && notes.length > 0">
+  <mat-card class="note-card" *ngFor="let note of notes" (click)="goToNoteDetail(note._id!)">
+    <mat-card-header>
+      <mat-card-title>{{ note.noteTitle }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ note.blocks.length }} {{ note.blocks.length === 1 ? 'block' : 'blocks' }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
 
-    <div class="note-main">
-      <div class="note-title">{{ note.noteTitle }}</div>
-      <div class="note-blocks-count">{{ note.blocks.length }} blocks</div>
-    </div>
-
-  </mat-list-item>
-</mat-list>
-
-
-<div *ngIf="!loading && notes.length === 0">
+<div *ngIf="!loading && notes.length === 0" class="no-notes">
   No notes found.
 </div>

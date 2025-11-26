@@ -1,12 +1,44 @@
-.toolbar {
+.notes-header {
   display: flex;
-  gap: 16px;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 12px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
+  margin-bottom: 24px;
 }
 
-.clickable-row {
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.note-card {
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.note-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.note-card mat-card-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.note-card mat-card-content p {
+  color: gray;
+  font-size: 14px;
+}
+
+.note-card mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.no-notes {
+  text-align: center;
+  color: gray;
+  margin-top: 24px;
+  font-style: italic;
 }

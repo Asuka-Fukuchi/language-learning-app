@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 })
 
 export class WordsList {
-  displayedColumns: string[] = ['word', 'phoneticSymbols', 'partOfSpeech', 'meaning', 'status'];
+  displayedColumns: string[] = ['word', 'type', 'phoneticSymbols', 'partOfSpeech', 'meaning', 'status'];
   dataSource = new MatTableDataSource<Word>([]);
 
   constructor(
@@ -43,12 +43,16 @@ export class WordsList {
             !f.partOfSpeech ||
             data.partOfSpeech === f.partOfSpeech;
 
+          const matchType =
+            !f.type ||
+            data.type === f.type;
+
           // status フィルタ
           const matchStatus =
             !f.status ||
             data.status === f.status;
 
-          return matchSearch && matchPos && matchStatus;
+          return matchSearch && matchPos && matchStatus && matchType;
         };
       });
     }
@@ -57,6 +61,7 @@ export class WordsList {
   filters = {
     search: '',
     partOfSpeech: '',
+    type: '',
     status: ''
   };
 
@@ -66,6 +71,10 @@ export class WordsList {
     "adjective", "adverb", "preposition",
     "conjunction", "interjection"
   ];
+
+  typeList = [
+    "word", "idiom", "structure", "phrase"
+  ]
 
   applyFilter() {
     this.dataSource.filter = JSON.stringify(this.filters);
