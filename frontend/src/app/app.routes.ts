@@ -19,7 +19,7 @@ import { Quiz } from './pages/quiz/quiz';
 
 export const routes: Routes = [
     { path: '', component: Home },
-    { path: 'home', component: Home },
+    { path: 'dashboard', component: Home },
     { path: 'login', component: Login },
     { path: 'register', component: Register },
 

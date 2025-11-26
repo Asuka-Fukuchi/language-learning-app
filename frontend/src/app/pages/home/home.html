@@ -1,1 +1,72 @@
-<p>home works!</p>
+<div class="dashboard-container" *ngIf="!loading && data; else loadingTpl">
+
+    <h1>My Language App</h1>
+
+
+  <!-- 統計セクション -->
+  <section class="stats-section">
+    <mat-card class="stat-card" (click)="goTo('/words')">
+      <mat-card-title>Total Words</mat-card-title>
+      <mat-card-content>
+        <div class="big">{{ data.totalWords }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card" (click)="goTo('/quiz')">
+      <mat-card-title>Need Review</mat-card-title>
+      <mat-card-content>
+        <div class="big">{{ data.byStatus.notYet + data.byStatus.almost }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card" (click)="goTo('/notes')">
+      <mat-card-title>Recent Notes</mat-card-title>
+      <mat-card-content>
+        <div class="big">{{ data.recentNotes.length || 0 }}</div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- 最近の単語・ノート -->
+  <section class="recent-section">
+    <mat-card class="recent-card">
+      <mat-card-title>Recent Words</mat-card-title>
+      <mat-card-content>
+        <ng-container *ngIf="data.recentWords?.length; else noWords">
+          <div *ngFor="let w of data.recentWords" class="recent-item">
+            <strong>{{ w.word }}</strong> - {{ w.meaning }} ({{ w.status }})
+          </div>
+          <div class="see-more" (click)="goTo('/words')">See all words →</div>
+        </ng-container>
+        <ng-template #noWords><div class="hint">No words yet</div></ng-template>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="recent-card">
+      <mat-card-title>Recent Notes</mat-card-title>
+      <mat-card-content>
+        <ng-container *ngIf="data.recentNotes?.length; else noNotes">
+          <div *ngFor="let n of data.recentNotes" class="recent-item">
+            <strong>{{ n.noteTitle || 'Untitled' }}</strong>
+          </div>
+          <div class="see-more" (click)="goTo('/notes')">See all notes →</div>
+        </ng-container>
+        <ng-template #noNotes><div class="hint">No notes yet</div></ng-template>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- クイズボタン -->
+  <section class="quiz-section">
+    <button mat-raised-button color="primary" (click)="goTo('/quiz')">
+      Start Quiz
+    </button>
+  </section>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p *ngIf="error">{{ error }}</p>
+  </div>
+</ng-template>

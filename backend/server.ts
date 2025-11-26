@@ -4,9 +4,8 @@ import cors from 'cors';
 import userRoutes from "./routes/user.routes";
 import wordRoutes from "./routes/word.routes";
 import noteRoutes from "./routes/note.routes";
+import dashboardRoutes from "./routes/dashboard.routes"
 import { connectDB } from './db/connect';
-
-console.log("🔥 SERVER TS STARTED");
 
 dotenv.config();                // Load .env first
 const app = express();
@@ -23,6 +22,7 @@ app.use((req, res, next) => {
 app.use("/users", userRoutes);
 app.use("/words", wordRoutes);
 app.use("/notes", noteRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 const PORT = Number(process.env["PORT"]) || 3000;
 
