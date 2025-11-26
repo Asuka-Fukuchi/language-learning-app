@@ -1,0 +1,48 @@
+.note-block {
+  margin-top: 20px;
+}
+
+.block-title {
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 2px solid #cfd8dc;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.block-paragraph {
+  font-size: 16px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.block-list {
+  padding-left: 22px;
+  margin: 0;
+}
+
+.block-list li {
+  line-height: 1.6;
+  margin: 4px 0;
+}
+
+.block-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.block-table th,
+.block-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.block-table th {
+  background: #eceff1;
+  font-weight: 600;
+}

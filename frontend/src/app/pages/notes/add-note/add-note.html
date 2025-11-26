@@ -1,73 +1,74 @@
 <div class="add-note-header">
-    <h2>New Note</h2>
-    <mat-form-field appearance="fill">
-        <mat-label>Note Title</mat-label>
-        <input matInput [(ngModel)]="noteTitle" />
-    </mat-form-field>
+  <h2>New Note</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Note Title</mat-label>
+    <input matInput [(ngModel)]="noteTitle" />
+  </mat-form-field>
 </div>
 
 <div class="add-block-buttons">
-    <button mat-raised-button color="primary" (click)="addBlock('title')">Title</button>
-    <button mat-raised-button color="accent" (click)="addBlock('paragraph')">Paragraph</button>
-    <button mat-raised-button color="warn" (click)="addBlock('list')">List</button>
-    <button mat-raised-button color="secondary" (click)="addBlock('table')">Table</button>
+  <button mat-raised-button color="primary" (click)="addBlock('title')">Headline</button>
+  <button mat-raised-button color="accent" (click)="addBlock('paragraph')">Paragraph</button>
+  <button mat-raised-button color="warn" (click)="addBlock('list')">List</button>
+  <button mat-raised-button color="secondary" (click)="addBlock('table')">Table</button>
 </div>
 
 <div *ngFor="let block of blocks; let i = index" class="block">
-    <div class="block-header">
-        <span>{{ block.type | titlecase }} Block</span>
-        <button mat-icon-button color="warn" (click)="removeBlock(i)">
-            <mat-icon>delete</mat-icon>
-        </button>
-    </div>
+  <div class="block-header">
+    <span>{{ block.type | titlecase }} Block</span>
+    <button mat-icon-button color="warn" (click)="removeBlock(i)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 
-    <!-- Title / Paragraph -->
-    <div *ngIf="block.type === 'title' || block.type === 'paragraph'">
-        <textarea matInput rows="2" [(ngModel)]="block.content"></textarea>
-    </div>
+  <!-- Title / Paragraph -->
+  <div *ngIf="block.type === 'title' || block.type === 'paragraph'">
+    <textarea matInput rows="2" [(ngModel)]="block.content"></textarea>
+  </div>
 
-    <!-- List -->
-    <div *ngIf="block.type === 'list'">
-        <div *ngFor="let item of block.items; let j = index">
-            <input matInput [(ngModel)]="block.items[j]" placeholder="List item" />
-            <button mat-icon-button color="warn" (click)="removeListItem(block, j)">
-                <mat-icon>delete</mat-icon>
+  <!-- List -->
+  <div *ngIf="block.type === 'list'">
+    <div *ngFor="let item of block.items; let j = index">
+      <input matInput [(ngModel)]="block.items[j]" placeholder="List item" />
+      <button mat-icon-button color="warn" (click)="removeListItem(block, j)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <button mat-mini-button color="primary" (click)="addListItem(block)">Add Item</button>
+  </div>
+
+  <!-- Table -->
+  <div *ngIf="block.type === 'table'">
+    <table mat-table>
+      <thead>
+        <tr>
+          <th *ngFor="let header of block.headers; let h = index">
+            <input matInput [(ngModel)]="block.headers[h]" placeholder="Header" />
+            <button mat-icon-button color="warn" (click)="removeTableColumn(block, h)">
+              <mat-icon>delete</mat-icon>
             </button>
-        </div>
-        <button mat-mini-button color="primary" (click)="addListItem(block)">Add Item</button>
-    </div>
-
-    <!-- Table -->
-    <div *ngIf="block.type === 'table'">
-        <table>
-            <thead>
-                <tr>
-                    <th *ngFor="let header of block.headers; let h = index">
-                        <input matInput [(ngModel)]="block.headers[h]" placeholder="Header" />
-                        <button mat-icon-button color="warn" (click)="removeTableColumn(block, h)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </th>
-                    <th>
-                        <button mat-mini-button color="primary" (click)="addTableColumn(block)">Add Column</button>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let row of block.rows; let r = index">
-                    <td *ngFor="let cell of row; let c = index">
-                        <input matInput [(ngModel)]="block.rows[r][c]" />
-                    </td>
-                    <td>
-                        <button mat-mini-button color="warn" (click)="removeTableRow(block, r)">Remove Row</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <button mat-mini-button color="primary" (click)="addTableRow(block)">Add Row</button>
-    </div>
+          </th>
+          <th>
+            <button mat-mini-button color="primary" (click)="addTableColumn(block)">Add Column</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of block.rows; let r = index">
+          <td *ngFor="let cell of row; let c = index">
+            <input matInput [(ngModel)]="block.rows[r][c]" />
+          </td>
+          <td>
+            <button mat-mini-button color="warn" (click)="removeTableRow(block, r)">Remove Row</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button mat-mini-button color="primary" (click)="addTableRow(block)">Add Row</button>
+  </div>
 </div>
 
 <div class="save-note">
-    <button mat-raised-button color="primary" (click)="saveNote()">Save Note</button>
+  <button mat-raised-button color="primary" (click)="saveNote()">Save Note</button>
 </div>
+

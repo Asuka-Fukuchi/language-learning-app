@@ -1,0 +1,51 @@
+<div class="note-block">
+
+  <!-- Title -->
+  <h3 *ngIf="block.type === 'title'" class="block-title" [contentEditable]="editable">{{ block.content }}</h3>
+
+  <!-- Paragraph -->
+  <p *ngIf="block.type === 'paragraph'" class="block-paragraph" [contentEditable]="editable">{{ block.content }}</p>
+
+  <!-- List -->
+  <ul *ngIf="block.type === 'list'" class="block-list">
+    <li *ngFor="let item of block.items; let i=index">
+      <span *ngIf="!editable">{{ item }}</span>
+      <input *ngIf="editable" [(ngModel)]="block.items[i]" placeholder="List item" />
+    </li>
+    <li *ngIf="editable">
+      <button mat-mini-button color="primary" (click)="addListItem.emit()">Add Item</button>
+    </li>
+  </ul>
+
+  <!-- Table -->
+  <table *ngIf="block.type === 'table'" class="block-table">
+    <thead>
+      <tr>
+        <th *ngFor="let header of block.headers; let hi=index">
+          <span *ngIf="!editable">{{ header }}</span>
+          <input *ngIf="editable" [(ngModel)]="block.headers[hi]" placeholder="Header" />
+        </th>
+        <th *ngIf="editable">
+          <button mat-mini-button color="primary" (click)="addTableColumn.emit()">Add Column</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of block.rows; let ri=index">
+        <td *ngFor="let cell of row; let ci=index">
+          <span *ngIf="!editable">{{ cell }}</span>
+          <input *ngIf="editable" [(ngModel)]="block.rows[ri][ci]" placeholder="Cell" />
+        </td>
+        <td *ngIf="editable">
+          <button mat-mini-button color="warn" (click)="addTableRow.emit()">Add Row</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Remove Block Button -->
+  <button *ngIf="editable" mat-icon-button color="warn" (click)="remove.emit()">
+    <mat-icon>delete</mat-icon>
+  </button>
+
+</div>

@@ -92,4 +92,8 @@ export class AddWord {
       this.router.navigate(['/words']);
     });
   }
+  
+  cancel() {
+    this.router.navigate(['/words']);
+  }
 }
