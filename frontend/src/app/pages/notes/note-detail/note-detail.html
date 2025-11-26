@@ -1,0 +1,49 @@
+<div class="note-detail-header">
+  <button mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h2>{{ note?.noteTitle }}</h2>
+  <button mat-raised-button color="primary" (click)="goToEditNote()">
+    Edit
+  </button>
+  <button mat-raised-button color="warn" (click)="deleteNote()">
+  Delete
+</button>
+</div>
+
+<div *ngIf="loading">Loading note...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<div *ngIf="note && !loading" class="note-blocks">
+  <div *ngFor="let block of note.blocks" class="block">
+
+
+    <!-- Title / Paragraph -->
+    <div *ngIf="block.type === 'title' || block.type === 'paragraph'">
+      <p>{{ block.content }}</p>
+    </div>
+
+    <!-- List -->
+    <div *ngIf="block.type === 'list'">
+      <ul>
+        <li *ngFor="let item of block.items">{{ item }}</li>
+      </ul>
+    </div>
+
+    <!-- Table -->
+    <div *ngIf="block.type === 'table'">
+      <table>
+        <thead>
+          <tr>
+            <th *ngFor="let header of block.headers">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of block.rows">
+            <td *ngFor="let cell of row">{{ cell }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

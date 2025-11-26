@@ -1,136 +1,58 @@
 import { Component } from '@angular/core';
 import { MaterialModule } from '../../../material/material/material-module';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-
 import { Note, NoteService } from '../../../services/note.service';
-import { NoteCard } from '../../../components/note/note';
-import { AuthService } from '../../../services/auth.service';
-import { User } from '../../../services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notes-list',
-  imports: [MaterialModule, NoteCard],
+  imports: [MaterialModule],
   templateUrl: './notes-list.html',
   styleUrl: './notes-list.css',
 })
 export class NotesList {
-  submitted = false;
-  errorMessage = '';
   notes: Note[] = [];
-  editingNote: Note | null = null;
-  currentUser: User | null = null;
+  loading = false;
+  error: string | null = null;
 
   constructor(
-    private router: Router,
-    private authService: AuthService,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private router: Router
   ) { }
 
-  addNoteForm = new FormGroup({
-    title: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2)
-    ]),
-    description: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5)
-    ]),
-  });
-
   ngOnInit(): void {
-    this.authService.currentUser$.subscribe((user) => {
-      if (user) {
-        this.currentUser = user;
-      }
+    this.loadNotes();
+  }
 
-      this.noteService.getUserNotes().subscribe(notes => {
+  loadNotes() {
+    this.loading = true;
+    this.noteService.getUserNotes().subscribe({
+      next: (notes) => {
         this.notes = notes;
-      });
-    });
-  }
-
-  get title() {
-    return this.addNoteForm.get('title')!;
-  }
-
-  get description() {
-    return this.addNoteForm.get('description')!;
-  }
-
-  getFormErrors(): string {
-    for (const field in this.addNoteForm.controls) {
-      const control = this.addNoteForm.get(field);
-      if (control?.errors) {
-        if (control.errors['required']) return `Fill in the ${field} field.`;
-        if (control.errors['minlength']) return `${field} is too short.`;
-      }
-    }
-    return '';
-  }
-
-  newNote(): void {
-    if (!this.currentUser) return;
-    if (!this.addNoteForm.valid) {
-      this.errorMessage = this.getFormErrors();
-      return;
-    }
-
-    const formValue = this.addNoteForm.value;
-
-    const newNote: Note = {
-      noteTitle: formValue.title ?? '',
-      description: formValue.description ?? '',
-      creator: this.currentUser._id ?? '',
-    };
-
-    this.noteService.createNote(newNote).subscribe({
-      next: () => {
-        alert('Note added successfully.'), (window.location.href = '/notes');
+        this.loading = false;
       },
-      error: (err) => console.error('Error making flat:', err),
+      error: (err) => {
+        console.error(err);
+        this.error = 'failed to get note';
+        this.loading = false;
+      }
     });
   }
 
-  editNoteForm = new FormGroup({
-    title: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2)
-    ]),
-    description: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5)
-    ]),
-  });
+  goToAddNote() {
+    this.router.navigate(['/notes/new']);
+  }
 
-  startEdit(note: Note) {
-    this.editingNote = note;
+  goToNoteDetail(noteId: string) {
+    this.router.navigate(['/notes', noteId]);
+  }
 
-    this.editNoteForm.setValue({
-      title: note.noteTitle,
-      description: note.description
+  deleteNote(noteId: string) {
+    if (!confirm('Delete this note?')) return;
+    this.noteService.deleteNote(noteId).subscribe({
+      next: () => {
+        this.notes = this.notes.filter(n => n._id !== noteId);
+      },
+      error: (err) => console.error(err)
     });
   }
-
-  updateNote() {
-    if (!this.editingNote) return;
-
-    const updates = {
-      noteTitle: this.editNoteForm.value.title!,
-      description: this.editNoteForm.value.description!
-    };
-
-    this.noteService.updateNote(this.editingNote._id!, updates)
-      .subscribe(updated => {
-        Object.assign(this.editingNote!, updated);
-        this.editingNote = null;
-      });
-  }
-
-  deleteNote(note: Note) {
-    this.noteService.deleteNote(note._id!).subscribe(() => {
-      this.notes = this.notes.filter(n => n._id !== note._id);
-    });
-  }
-
 }

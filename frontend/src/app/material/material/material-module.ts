@@ -19,10 +19,13 @@ import { MatTableModule } from '@angular/material/table';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
+
+export const MaterialModule = [
+  CommonModule,
     MatSidenavModule,
     MatTabsModule,
     MatToolbarModule,
@@ -38,24 +41,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
-  ],
-  exports: [
-    CommonModule,
-    MatSidenavModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    MatListModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    DragDropModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatTableModule,
-  ]
-})
-export class MaterialModule { }
+    MatSelectModule,
+    MatOptionModule,
+    MatChipsModule,
+    MatDividerModule
+];

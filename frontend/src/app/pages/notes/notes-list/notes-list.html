@@ -1,65 +1,27 @@
-<div class="form-wrapper">
-    <!-- Add Task Form -->
-    <div class="form-box">
-        <h3>Add New Note</h3>
-        <div class="box">
-            <mat-card-content>
-                <form class="my-form" [formGroup]="addNoteForm">
-                    <mat-form-field class="full-width">
-                        <mat-label>title</mat-label>
-                        <input matInput placeholder="title" name="title" id="title" formControlName="title" required>
-                    </mat-form-field>
+<div class="notes-header">
+  <h2>My Notes</h2>
+  <button mat-raised-button color="primary" (click)="goToAddNote()">
+    Add Note
+  </button>
+</div>
 
-                    <mat-form-field class="full-width">
-                        <mat-label>description</mat-label>
-                        <textarea matInput placeholder="description" name="description" id="description"
-                            formControlName="description" required></textarea>
-                    </mat-form-field>
+<div *ngIf="loading" class="loading">
+  Loading notes...
+</div>
 
-                    <mat-card-actions>
-                        <button mat-raised-button color="primary" type="submit" class="buttonSubmit" (click)="newNote()"
-                            [disabled]="addNoteForm.invalid">Add Note</button>
-                    </mat-card-actions>
+<mat-list *ngIf="!loading && notes.length > 0">
+  <mat-list-item *ngFor="let note of notes" class="note-item" 
+    (click)="goToNoteDetail(note._id!)" style="cursor: pointer;">
 
-                </form>
-            </mat-card-content>
-        </div>
+    <div class="note-main">
+      <div class="note-title">{{ note.noteTitle }}</div>
+      <div class="note-blocks-count">{{ note.blocks.length }} blocks</div>
     </div>
 
-    <!-- Edit Task Form -->
-    <div class="form-box" *ngIf="editingNote">
-        <h3>Edit Task</h3>
-        <div class="box" *ngIf="editingNote">
-            <mat-card-content>
-                <form class="my-form" [formGroup]="editNoteForm">
-                    <mat-form-field class="full-width">
-                        <mat-label>Title</mat-label>
-                        <input matInput formControlName="title" required />
-                    </mat-form-field>
+  </mat-list-item>
+</mat-list>
 
-                    <mat-form-field class="full-width">
-                        <mat-label>Description</mat-label>
-                        <input matInput formControlName="description" required />
-                    </mat-form-field>
 
-                    <mat-card-actions>
-                        <button mat-raised-button color="primary" (click)="updateNote()"
-                            [disabled]="editNoteForm.invalid">
-                            Save
-                        </button>
-                        <!-- <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button> -->
-                    </mat-card-actions>
-                </form>
-            </mat-card-content>
-        </div>
-    </div>
-
-    <div *ngFor="let note of notes">
-        <app-note-card 
-            [note]="note"
-            (edit)="startEdit(note)"
-            (delete)="deleteNote(note)"
-        ></app-note-card>
-    </div>
-
+<div *ngIf="!loading && notes.length === 0">
+  No notes found.
 </div>

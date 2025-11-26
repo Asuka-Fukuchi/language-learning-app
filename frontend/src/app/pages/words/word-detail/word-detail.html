@@ -1,0 +1,47 @@
+<div class="word-detail-container" *ngIf="word">
+  <mat-card class="word-card">
+    <mat-card-header>
+      <mat-card-title>
+        {{ word.word }}
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="word.type === 'word'">
+        {{ word.partOfSpeech || '-' }} | {{ word.phoneticSymbols || '-' }}
+      </mat-card-subtitle>
+
+      <mat-card-subtitle *ngIf="word.type !== 'word'">
+        {{ word.type }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="word-info">
+        <p><strong>Meaning:</strong> {{ word.meaning }}</p>
+        <mat-divider></mat-divider>
+        <p><strong>Synonyms:</strong> <span *ngFor="let s of word.synonyms; let last=last">
+            {{ s }}<span *ngIf="!last">, </span>
+          </span></p>
+        <p><strong>Antonyms:</strong> <span *ngFor="let s of word.antonyms; let last=last">
+            {{ s }}<span *ngIf="!last">, </span>
+          </span></p>
+      </div>
+
+      <div class="word-extras">
+        <mat-divider></mat-divider>
+
+        <h3>Examples</h3>
+        <mat-list>
+          <mat-list-item *ngFor="let ex of word.examples">
+            {{ ex }}
+          </mat-list-item>
+        </mat-list>
+
+        
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="button-box">
+      <button mat-raised-button color="primary" (click)="goToEdit()">Edit</button>
+      <button mat-stroked-button (click)="router.navigate(['/words'])">Back</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

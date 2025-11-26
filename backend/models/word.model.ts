@@ -9,11 +9,6 @@ export type WordPartOfSpeech =
 export type WordStatus = "perfect" | "almost" | "notYet";
 
 
-export interface IExample {
-    sentence: string;
-    note?: string;
-}
-
 export interface ISpaced {
     repetitions?: number;
     interval?: number;
@@ -29,23 +24,13 @@ export interface IWord extends Document {
     synonyms?: string[];
     antonyms?: string[];
     meaning: string;
-    examples: IExample[];    
+    examples: string[];    
     status: WordStatus;
-    tags?: string[];
     spaced?: ISpaced;
     creator: mongoose.Types.ObjectId;
     createdAt?: Date;
     updatedAt?: Date;
 }
-
-const ExampleSchema = new Schema<IExample>(
-    {
-        sentence: { type: String, required: true, trim:true },
-        note: { type: String }
-    },
-    { _id: false }
-);
-
 
 const WordSchema = new Schema<IWord>(
     {
@@ -64,13 +49,12 @@ const WordSchema = new Schema<IWord>(
         synonyms: { type: [String], default: [] },
         antonyms: { type: [String], default: [] },
         meaning: { type: String, required: true },
-        examples: { type: [ExampleSchema], required: true },        
+        examples: { type: [String], required: true },        
         status: {
             type: String,
             enum: ["perfect", "almost", "notYet"],
             default: "notYet"
         },
-        tags: { type: [String], default: [] },
         spaced: {
             repetitions: { type: Number, default: 0 },
             interval: { type: Number, default: 0 },

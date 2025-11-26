@@ -1,0 +1,35 @@
+.word-detail-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+
+  .word-card {
+    width: 100%;
+    max-width: 800px;
+
+    .word-info p {
+      margin: 5px 0;
+    }
+
+    .word-extras {
+      margin-top: 20px;
+
+      h3 {
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+
+      mat-chip-list {
+        margin-bottom: 10px;
+      }
+    }
+
+    .button-box {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+    }
+  }
+}
+

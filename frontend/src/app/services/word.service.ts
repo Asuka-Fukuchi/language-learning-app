@@ -10,12 +10,6 @@ export type WordPartOfSpeech =
 
 export type WordStatus = "perfect" | "almost" | "notYet";
 
-
-export interface IExample {
-    sentence: string;
-    note?: string;
-}
-
 export interface ISpaced {
     repetitions?: number;
     interval?: number;
@@ -31,9 +25,8 @@ export interface Word {
   synonyms?: string[];
   antonyms?: string[];
   meaning: string;
-  examples: IExample[];
+  examples: string[];
   status: WordStatus;
-  tags?: string[];
   spaced?: ISpaced;
   creator: string;
 }

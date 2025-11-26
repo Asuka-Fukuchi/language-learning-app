@@ -1,8 +1,32 @@
-<!-- Filter
-<mat-form-field appearance="outline">
-  <mat-label>Search</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Type to filter...">
-</mat-form-field> -->
+<!-- Filter -->
+<div class="toolbar">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter()" [(ngModel)]="filters.search">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Part of Speech</mat-label>
+    <mat-select [(ngModel)]="filters.partOfSpeech" (selectionChange)="applyFilter()">
+      <mat-option value="">All</mat-option>
+      <mat-option *ngFor="let pos of partOfSpeechList" [value]="pos">{{pos}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="filters.status" (selectionChange)="applyFilter()">
+      <mat-option value="">All</mat-option>
+      <mat-option value="perfect">Perfect</mat-option>
+      <mat-option value="almost">Almost</mat-option>
+      <mat-option value="notYet">Not Yet</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" (click)="goToAddWord()">
+    + Add Word
+  </button>
+</div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -37,5 +61,6 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goToDetail(row)"
+  class="clickable-row" ></tr>
 </table>

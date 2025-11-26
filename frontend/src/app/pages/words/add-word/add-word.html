@@ -1,1 +1,110 @@
-<p>add-word works!</p>
+<div class="container">
+
+    <h2>New Word</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="grid">
+
+            <!-- LEFT COLUMN -->
+            <div class="left-column">
+
+                <mat-form-field appearance="outline" class="full">
+                    <mat-label>Word</mat-label>
+                    <input matInput formControlName="word" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full">
+                    <mat-label>Phonetic Symbols</mat-label>
+                    <input matInput formControlName="phoneticSymbols">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full">
+                    <mat-label>Type</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option *ngFor="let t of wordTypes" [value]="t">
+                            {{ t }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full">
+                    <mat-label>Part of Speech</mat-label>
+                    <mat-select formControlName="partOfSpeech">
+                        <mat-option *ngFor="let pos of partOfSpeechList" [value]="pos">
+                            {{ pos }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full">
+                    <mat-label>Meaning</mat-label>
+                    <textarea matInput formControlName="meaning" rows="4"></textarea>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let s of statusList" [value]="s">
+                            {{ s }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="right-column">
+                <div formArrayName="examples">
+                    <div *ngFor="let ex of examples.controls; let i = index" class="row-item">
+
+                        <mat-form-field appearance="outline" class="full">
+                            <mat-label>Example</mat-label>
+                            <input matInput [formControlName]="i">
+                        </mat-form-field>
+
+                        <button mat-icon-button color="warn" (click)="removeExample(i)" *ngIf="examples.length > 1">
+                            <mat-icon>close</mat-icon>
+                        </button>
+
+                    </div>
+                    <button mat-button color="primary" (click)="addExample()">+ Add Example</button>
+                </div>
+
+                <div formArrayName="synonyms">
+                    <div *ngFor="let s of synonyms.controls; let i = index" class="row-item">
+
+                        <mat-form-field appearance="outline" class="full">
+                            <mat-label>Synonym</mat-label>
+                            <input matInput [formControlName]="i">
+                        </mat-form-field>
+
+                        <button mat-icon-button color="warn" (click)="removeSynonym(i)" *ngIf="synonyms.length > 1">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                    <button mat-button color="primary" (click)="addSynonym()">+ Add Synonym</button>
+                </div>
+
+                <div formArrayName="antonyms">
+                    <div *ngFor="let a of antonyms.controls; let i = index" class="row-item">
+
+                        <mat-form-field appearance="outline" class="full">
+                            <mat-label>Antonym</mat-label>
+                            <input matInput [formControlName]="i">
+                        </mat-form-field>
+
+                        <button mat-icon-button color="warn" (click)="removeAntonym(i)" *ngIf="antonyms.length > 1">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                    <button mat-button color="primary" (click)="addAntonym()">+ Add Antonym</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="submit-box">
+            <button mat-raised-button color="primary" type="submit">Save</button>
+        </div>
+    </form>
+</div>

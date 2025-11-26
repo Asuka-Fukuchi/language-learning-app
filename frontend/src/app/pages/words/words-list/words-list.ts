@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-words-list',
-  imports: [ MaterialModule ],
+  imports: [MaterialModule],
   templateUrl: './words-list.html',
   styleUrl: './words-list.css',
 })
@@ -27,16 +27,55 @@ export class WordsList {
     const user = this.authService.currentUserSnapshot();
     if (user) {
       this.wordService.getUserWords(user._id!).subscribe(words => {
-        
         this.dataSource.data = words;
+
+        this.dataSource.filterPredicate = (data: Word, filter: string) => {
+          const f = JSON.parse(filter);
+
+          // search = word, meaning を含むか
+          const matchSearch =
+            !f.search ||
+            data.word.toLowerCase().includes(f.search) ||
+            data.meaning.toLowerCase().includes(f.search);
+
+          // POS フィルタ
+          const matchPos =
+            !f.partOfSpeech ||
+            data.partOfSpeech === f.partOfSpeech;
+
+          // status フィルタ
+          const matchStatus =
+            !f.status ||
+            data.status === f.status;
+
+          return matchSearch && matchPos && matchStatus;
+        };
       });
     }
   }
 
-  filterValue: string = '';
+  filters = {
+    search: '',
+    partOfSpeech: '',
+    status: ''
+  };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  partOfSpeechList = [
+    "article", "noun", "pronoun",
+    "verb", "auxiliary verb",
+    "adjective", "adverb", "preposition",
+    "conjunction", "interjection"
+  ];
+
+  applyFilter() {
+    this.dataSource.filter = JSON.stringify(this.filters);
+  }
+
+  goToAddWord() {
+    this.router.navigate(['/words/new']);
+  }
+
+  goToDetail(word: Word) {
+    this.router.navigate(['/words', word._id]);
   }
 }

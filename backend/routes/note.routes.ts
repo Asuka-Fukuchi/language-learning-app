@@ -8,18 +8,18 @@ export default router;
 // Create a new word
 router.post("/", authMiddleware, async (req, res) => {
   try {
-    const { noteTitle, description } = req.body;
+    const { noteTitle, blocks } = req.body;
     const creator = req.user?.id;
 
     if (!creator) return res.status(401).json({ error: "Unauthorized" });
 
-    if (!noteTitle || !description) {
-      return res.status(400).json({ error: "Missing required fields: noteTitle, description" });
+    if (!noteTitle || !blocks) {
+      return res.status(400).json({ error: "Missing required fields: noteTitle, blocks" });
     }
 
     const newNote = new Note({
       noteTitle,
-      description,
+      blocks,
       creator
     });
 
@@ -70,7 +70,7 @@ router.patch("/:id", authMiddleware, async (req, res) => {
     }
 
     delete req.body.creator;
-    const allowed = [ "noteTitle", "description" ];
+    const allowed = [ "noteTitle", "blocks" ];
 
     for (const key of allowed) {
       if (key in req.body) {
