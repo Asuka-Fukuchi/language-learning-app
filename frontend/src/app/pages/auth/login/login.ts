@@ -64,7 +64,7 @@ export class Login {
     this.userService.loginUser(credentials).subscribe({
       next: (res) => {
         this.authService.login(res.token, res.user);
-        window.location.href = '/home';
+        window.location.href = '/dashboard';
       },
       error: (err) => {
         this.errorMessage = 'Invalid email or password.';

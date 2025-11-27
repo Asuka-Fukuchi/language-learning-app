@@ -123,12 +123,30 @@ export class QuizService {
   // ============================================================
   // 回答処理（どの出題方式でも spaced を更新）
   // ============================================================
-  processQuizAnswer(word: Word, isCorrect: boolean): Observable<Word> {
-    const updatedSpaced = this.updateSpaced(word.spaced, isCorrect);
+  processQuizAnswer(word: Word, isCorrect: boolean, mode: 'spaced' | 'filter' | 'random'): Observable<Word> {
+    let updatedSpaced = word.spaced;
+
+    if (mode === 'spaced') {
+      updatedSpaced = this.updateSpaced(word.spaced, isCorrect);
+    }
+
+    let newStatus = word.status;
+    if (mode === 'spaced' && isCorrect && updatedSpaced?.interval !== undefined) {
+      if (updatedSpaced.interval >= 30) {
+        newStatus = 'perfect';
+      } else if (updatedSpaced.interval >= 14) {
+        newStatus = 'almost';
+      } else {
+        newStatus = isCorrect ? 'almost' : 'notYet';
+      }
+    } else {
+      // spaced 以外のクイズならステータスは変えない or 任意で設定
+      newStatus = isCorrect ? 'almost' : 'notYet';
+    }
 
     return this.wordService.updateWord(word._id!, {
       spaced: updatedSpaced,
-      status: isCorrect ? 'almost' : 'notYet', // ここは任意で変更可能
+      status: newStatus,
     });
   }
 }

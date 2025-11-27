@@ -66,7 +66,7 @@ router.post("/login", async (req, res) => {
         const token = jwt.sign(
             { id: user._id, email: user.email },
             process.env["JWT_SECRET"] as string,
-            { expiresIn: '1h' }
+            { expiresIn: '3h' }
         );
 
         const safe = user.toObject();

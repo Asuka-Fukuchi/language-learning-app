@@ -51,6 +51,8 @@ export class QuizPlay {
   ngOnInit() {
     if (!this.settings) return;
 
+    this.quizMode = this.settings.mode; 
+
     const { mode, limit, filter } = this.settings;
     if (mode === 'spaced') {
       this.quizService.getSpacedQuizWords('me', limit).subscribe(words => this.quizWords = words);
@@ -65,7 +67,7 @@ export class QuizPlay {
     const word = this.quizWords[this.currentIndex];
     const isCorrect = word.word.trim().toLowerCase() === this.userInput.trim().toLowerCase();
 
-    this.quizService.processQuizAnswer(word, isCorrect).subscribe();
+    this.quizService.processQuizAnswer(word, isCorrect, this.quizMode).subscribe();
 
     this.results.push({
       word: word.word,
