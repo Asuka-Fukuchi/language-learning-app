@@ -1,0 +1,22 @@
+.quiz-settings-container {
+  max-width: 400px;  /* 横幅をコンパクトに */
+  margin: 0 auto;    /* 中央寄せ */
+  padding: 16px;
+}
+
+.compact-form {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.filter-group-vertical {
+  display: flex;
+  flex-direction: column; /* 縦に並べる */
+  gap: 8px;               /* チェックボックスの間隔 */
+  margin-bottom: 16px;
+}
+
+.start-btn {
+  margin-top: 24px;
+  text-align: center;
+}

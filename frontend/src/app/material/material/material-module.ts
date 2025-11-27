@@ -23,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 export const MaterialModule = [
   CommonModule,
@@ -44,5 +45,6 @@ export const MaterialModule = [
     MatSelectModule,
     MatOptionModule,
     MatChipsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCheckboxModule
 ];

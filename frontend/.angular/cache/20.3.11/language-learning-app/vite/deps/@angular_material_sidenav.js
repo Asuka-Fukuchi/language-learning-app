@@ -1,17 +1,18 @@
 import {
+  _animationsDisabled
+} from "./chunk-3DT63CZI.js";
+import "./chunk-5UDM7KZ6.js";
+import {
+  coerceBooleanProperty
+} from "./chunk-46HAYV32.js";
+import {
   CdkScrollable,
   CdkScrollableModule,
   ScrollDispatcher,
   ViewportRuler
 } from "./chunk-P7JAUASL.js";
 import "./chunk-V3QNPMDZ.js";
-import "./chunk-5UDM7KZ6.js";
-import {
-  coerceBooleanProperty
-} from "./chunk-46HAYV32.js";
-import {
-  _animationsDisabled
-} from "./chunk-3DT63CZI.js";
+import "./chunk-5EG33CFQ.js";
 import {
   ESCAPE,
   FocusMonitor,
@@ -22,7 +23,6 @@ import {
 } from "./chunk-ENLJXS6L.js";
 import "./chunk-I4ETNGKQ.js";
 import "./chunk-JAMBQVG4.js";
-import "./chunk-5EG33CFQ.js";
 import {
   Directionality
 } from "./chunk-RZXKCM4G.js";

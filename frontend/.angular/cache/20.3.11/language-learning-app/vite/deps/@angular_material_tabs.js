@@ -4,23 +4,24 @@ import {
   TemplatePortal
 } from "./chunk-G36E3JDQ.js";
 import {
+  MAT_RIPPLE_GLOBAL_OPTIONS,
+  MatRipple,
+  _StructuralStylesLoader
+} from "./chunk-DVBJKI7G.js";
+import {
   SharedResizeObserver
 } from "./chunk-BPAMHFMN.js";
+import {
+  _animationsDisabled
+} from "./chunk-3DT63CZI.js";
+import "./chunk-5UDM7KZ6.js";
+import "./chunk-46HAYV32.js";
 import {
   CdkScrollable,
   ViewportRuler
 } from "./chunk-P7JAUASL.js";
 import "./chunk-V3QNPMDZ.js";
-import {
-  MAT_RIPPLE_GLOBAL_OPTIONS,
-  MatRipple,
-  _StructuralStylesLoader
-} from "./chunk-DVBJKI7G.js";
-import "./chunk-5UDM7KZ6.js";
-import "./chunk-46HAYV32.js";
-import {
-  _animationsDisabled
-} from "./chunk-3DT63CZI.js";
+import "./chunk-5EG33CFQ.js";
 import {
   CdkMonitorFocus,
   CdkObserveContent,
@@ -37,7 +38,6 @@ import {
 import {
   _CdkPrivateStyleLoader
 } from "./chunk-JAMBQVG4.js";
-import "./chunk-5EG33CFQ.js";
 import {
   Directionality
 } from "./chunk-RZXKCM4G.js";

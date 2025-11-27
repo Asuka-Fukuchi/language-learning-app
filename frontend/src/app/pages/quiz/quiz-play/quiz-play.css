@@ -1,0 +1,33 @@
+.no-words-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.no-words-card {
+  max-width: 400px;
+  text-align: center;
+  background-color: #fff3e0;
+}
+
+.quiz-result-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.summary-card {
+  text-align: center;
+  font-size: 1.2rem;
+  position: relative;
+}
+
+.summary-card .large-icon {
+  font-size: 50px;
+  margin-top: 10px;
+}
+
+.summary-card.excellent { background-color: #c8e6c9; } /* 緑 */
+.summary-card.good { background-color: #fff9c4; }      /* 黄色 */
+.summary-card.bad { background-color: #ffcdd2; }       /* 赤 */

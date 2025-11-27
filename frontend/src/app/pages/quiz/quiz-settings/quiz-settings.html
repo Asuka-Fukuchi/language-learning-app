@@ -1,0 +1,50 @@
+<mat-card class="quiz-settings-container">
+
+  <h2>Quiz Setting</h2>
+
+  <!-- 出題形式 -->
+  <h3>Quiz Mode</h3>
+  <mat-form-field appearance="fill" class="compact-form">
+    <mat-label>Quiz Mode</mat-label>
+    <mat-select [(value)]="quizMode">
+      <mat-option value="spaced">Spaced Repetition</mat-option>
+      <mat-option value="filter">User selected</mat-option>
+      <mat-option value="random">Random</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- 出題数 -->
+  <h3>Number of Quiz</h3>
+  <mat-form-field appearance="fill" class="compact-form">
+    <mat-label>Number of Quiz</mat-label>
+    <mat-select [(value)]="selectedLimit">
+      <mat-option *ngFor="let num of limitOptions" [value]="num">{{num}} 問</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- フィルター -->
+  <div *ngIf="quizMode === 'filter'">
+    <h3>Status</h3>
+    <div class="filter-group-vertical">
+      <mat-checkbox *ngFor="let s of statusOptions"
+                    [checked]="selectedStatuses.includes(s)"
+                    (change)="toggleStatus(s, $event.checked)">
+        {{ s }}
+      </mat-checkbox>
+    </div>
+
+    <h3>Word Type</h3>
+    <div class="filter-group-vertical">
+      <mat-checkbox *ngFor="let t of typeOptions"
+                    [checked]="selectedTypes.includes(t)"
+                    (change)="toggleType(t, $event.checked)">
+        {{ t }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <div class="start-btn">
+    <button mat-raised-button color="primary" (click)="startQuiz()">Start</button>
+  </div>
+
+</mat-card>

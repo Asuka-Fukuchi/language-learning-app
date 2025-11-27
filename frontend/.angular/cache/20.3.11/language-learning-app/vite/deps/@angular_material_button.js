@@ -7,11 +7,12 @@ import {
 import {
   _StructuralStylesLoader
 } from "./chunk-DVBJKI7G.js";
-import "./chunk-5UDM7KZ6.js";
-import "./chunk-46HAYV32.js";
 import {
   _animationsDisabled
 } from "./chunk-3DT63CZI.js";
+import "./chunk-5UDM7KZ6.js";
+import "./chunk-46HAYV32.js";
+import "./chunk-5EG33CFQ.js";
 import {
   FocusMonitor,
   MatCommonModule
@@ -20,7 +21,6 @@ import "./chunk-I4ETNGKQ.js";
 import {
   _CdkPrivateStyleLoader
 } from "./chunk-JAMBQVG4.js";
-import "./chunk-5EG33CFQ.js";
 import "./chunk-RZXKCM4G.js";
 import "./chunk-X3BRUDZR.js";
 import "./chunk-C5ODBA2I.js";

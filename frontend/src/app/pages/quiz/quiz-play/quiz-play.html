@@ -1,0 +1,82 @@
+<!-- Spaced Mode: No words available -->
+<div *ngIf="quizMode === 'spaced' && quizWords.length === 0" class="no-words-container">
+  <mat-card class="mat-elevation-z4 no-words-card">
+    <mat-card-title>🎉 No more words for today!</mat-card-title>
+    <mat-card-content>
+      All spaced repetition words have been reviewed for today. 
+      Come back tomorrow for new review words.
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="goBack()">Back to Quiz Settings</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div class="quiz-container" *ngIf="!finished && quizWords.length">
+  <h2>Quiz {{ currentIndex + 1 }}/{{ quizWords.length }}</h2>
+  
+  <mat-card>
+    <mat-card-title>Meaning: {{ quizWords[currentIndex].meaning }}</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Enter the right Word</mat-label>
+        <input matInput [(ngModel)]="userInput" (keyup.enter)="submitAnswer()">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="submitAnswer()">Next</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div *ngIf="finished" class="quiz-result-container">
+  <mat-card class="summary-card" [ngClass]="{
+        'excellent': correctCount / totalCount >= 0.8,
+        'good': correctCount / totalCount >= 0.5 && correctCount / totalCount < 0.8,
+        'bad': correctCount / totalCount < 0.5
+      }">
+    <mat-card-title>
+      You scored {{ correctCount }} / {{ totalCount }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ (correctCount / totalCount * 100) | number:'1.0-0' }}%
+    </mat-card-subtitle>
+    <mat-icon *ngIf="correctCount / totalCount >= 0.8" color="primary" class="large-icon">emoji_events</mat-icon>
+    <mat-icon *ngIf="correctCount / totalCount >= 0.5 && correctCount / totalCount < 0.8" color="accent" class="large-icon">thumb_up</mat-icon>
+    <mat-icon *ngIf="correctCount / totalCount < 0.5" color="warn" class="large-icon">sentiment_very_dissatisfied</mat-icon>
+  </mat-card>
+
+  <mat-table [dataSource]="results" class="mat-elevation-z8 full-width">
+    <!-- 単語列 -->
+    <ng-container matColumnDef="word">
+      <mat-header-cell *matHeaderCellDef> Word </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.word }} </mat-cell>
+    </ng-container>
+
+    <!-- 意味列 -->
+    <ng-container matColumnDef="meaning">
+      <mat-header-cell *matHeaderCellDef> Meaning </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.meaning }} </mat-cell>
+    </ng-container>
+
+    <!-- ユーザー回答列 -->
+    <ng-container matColumnDef="userAnswer">
+      <mat-header-cell *matHeaderCellDef> Your answer </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.userAnswer }} </mat-cell>
+    </ng-container>
+
+    <!-- 正誤列 -->
+    <ng-container matColumnDef="correct">
+      <mat-header-cell *matHeaderCellDef> Result </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.correct" color="primary">check_circle</mat-icon>
+        <mat-icon *ngIf="!element.correct" color="warn">highlight_off</mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <button mat-raised-button color="primary" (click)="goBack()">Restart Quiz</button>
+</div>

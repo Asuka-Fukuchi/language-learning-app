@@ -14,7 +14,8 @@ import { AddNote } from './pages/notes/add-note/add-note';
 import { EditNote } from './pages/notes/edit-note/edit-note';
 import { NoteDetail } from './pages/notes/note-detail/note-detail';
 
-import { Quiz } from './pages/quiz/quiz';
+import { QuizSettings } from './pages/quiz/quiz-settings/quiz-settings';
+import { QuizPlay } from './pages/quiz/quiz-play/quiz-play';
 
 
 export const routes: Routes = [
@@ -33,5 +34,6 @@ export const routes: Routes = [
     { path: 'notes/edit/:id', component: EditNote },
     { path: 'notes/:id', component: NoteDetail }, 
     
-    { path: 'quiz', component: Quiz }
+    { path: 'quiz', component: QuizSettings },
+    { path: 'quiz/play', component: QuizPlay }
 ];

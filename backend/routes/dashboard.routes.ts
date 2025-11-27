@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
     const recentWordsPromise = Word.find()
       .sort({ createdAt: -1 })
       .limit(3)
-      .select("word meaning status createdAt") // 必要なフィールドだけ
+      .select("word meaning status createdAt")
       .lean();
 
     // recent notes (assumes you have Note model with createdAt)

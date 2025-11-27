@@ -5,6 +5,7 @@ import {
   ViewportRuler
 } from "./chunk-P7JAUASL.js";
 import "./chunk-V3QNPMDZ.js";
+import "./chunk-5EG33CFQ.js";
 import {
   _IdGenerator,
   _getEventTarget,
@@ -16,7 +17,6 @@ import {
 import {
   _CdkPrivateStyleLoader
 } from "./chunk-JAMBQVG4.js";
-import "./chunk-5EG33CFQ.js";
 import {
   Directionality
 } from "./chunk-RZXKCM4G.js";
