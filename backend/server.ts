@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import path from 'path';
 import express from 'express';
 import cors from 'cors';
 import userRoutes from "./routes/user.routes";
@@ -12,7 +13,9 @@ const app = express();
 
 // Global middleware 
 app.use(cors());                // allow browser clients in dev
-app.use(express.json());        // parse JSON bodies
+app.use(express.json({ limit: '10mb' }));        // parse JSON bodies
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use((req, res, next) => {
   console.log("REQ:", req.method, req.url);

@@ -1,0 +1,13 @@
+.note-detail-container,
+.note-edit-container {
+  max-width: 850px;
+  margin: auto;
+  padding: 16px;
+}
+
+.note-content-card {
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}

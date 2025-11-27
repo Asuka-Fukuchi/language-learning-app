@@ -1,7 +1,8 @@
-.note-block {
-  margin-top: 20px;
+.note-block + .note-block {
+  margin-top: 20px; /* ブロック間の余白 */
 }
 
+/* Title Block */
 .block-title {
   font-size: 20px;
   font-weight: 600;
@@ -10,12 +11,14 @@
   margin-bottom: 8px;
 }
 
+/* Paragraph */
 .block-paragraph {
   font-size: 16px;
   line-height: 1.7;
   white-space: pre-line;
 }
 
+/* List */
 .block-list {
   padding-left: 22px;
   margin: 0;
@@ -26,10 +29,11 @@
   margin: 4px 0;
 }
 
+/* Table */
 .block-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin: 20px 0;
   background: #fafafa;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -45,4 +49,14 @@
 .block-table th {
   background: #eceff1;
   font-weight: 600;
+}
+
+/* Image */
+.image-view,
+.image-preview {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  display: block;
+  margin: 20px auto;
 }

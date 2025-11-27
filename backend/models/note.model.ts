@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export type NoteBlockType = 'title' | 'paragraph' | 'list' | 'table';
+export type NoteBlockType = 'title' | 'paragraph' | 'list' | 'table' | 'image';
 
 export interface INoteBlock {
   type: NoteBlockType;
@@ -8,6 +8,8 @@ export interface INoteBlock {
   items?: string[];       // list 用
   headers?: string[];     // table 用
   rows?: string[][];      // table 用
+  url?: string;
+  caption?: string;
 }
 
 // Note ドキュメントの型定義
@@ -22,11 +24,13 @@ export interface INote extends Document {
 // ブロックのスキーマ
 const NoteBlockSchema = new Schema<INoteBlock>(
   {
-    type: { type: String, enum: ['title','paragraph','list','table'], required: true },
+    type: { type: String, enum: ['title','paragraph','list','table', 'image'], required: true },
     content: { type: String },    // title / paragraph
     items: [{ type: String }],    // list
     headers: [{ type: String }],  // table
-    rows: [[String]]               // table
+    rows: [[String]],               // table
+    url: { type: String },
+    caption: { type: String } 
   },
   { _id: false } // blocks 配列内では自動 _id は不要
 );

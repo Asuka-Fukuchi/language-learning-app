@@ -1,19 +1,30 @@
 <div class="note-block">
 
   <!-- Title -->
-  <h3 *ngIf="block.type === 'title'" class="block-title" [contentEditable]="editable">{{ block.content }}</h3>
+  <h3 *ngIf="block.type === 'title'"
+      class="block-title"
+      [contentEditable]="editable"
+      (input)="updateContent($event)">
+    {{ block.content }}
+  </h3>
 
   <!-- Paragraph -->
-  <p *ngIf="block.type === 'paragraph'" class="block-paragraph" [contentEditable]="editable">{{ block.content }}</p>
+  <p *ngIf="block.type === 'paragraph'"
+     class="block-paragraph"
+     [contentEditable]="editable"
+     (input)="updateContent($event)">
+    {{ block.content }}
+  </p>
 
   <!-- List -->
   <ul *ngIf="block.type === 'list'" class="block-list">
     <li *ngFor="let item of block.items; let i=index">
       <span *ngIf="!editable">{{ item }}</span>
-      <input *ngIf="editable" [(ngModel)]="block.items[i]" placeholder="List item" />
+      <input *ngIf="editable" [(ngModel)]="block.items[i]" />
     </li>
+
     <li *ngIf="editable">
-      <button mat-mini-button color="primary" (click)="addListItem.emit()">Add Item</button>
+      <button mat-button (click)="addListItem.emit()">＋ Add Item</button>
     </li>
   </ul>
 
@@ -23,29 +34,60 @@
       <tr>
         <th *ngFor="let header of block.headers; let hi=index">
           <span *ngIf="!editable">{{ header }}</span>
-          <input *ngIf="editable" [(ngModel)]="block.headers[hi]" placeholder="Header" />
+          <input *ngIf="editable" [(ngModel)]="block.headers[hi]" />
         </th>
         <th *ngIf="editable">
-          <button mat-mini-button color="primary" (click)="addTableColumn.emit()">Add Column</button>
+          <button mat-button (click)="addTableColumn.emit()">+ Column</button>
         </th>
       </tr>
     </thead>
+
     <tbody>
       <tr *ngFor="let row of block.rows; let ri=index">
         <td *ngFor="let cell of row; let ci=index">
           <span *ngIf="!editable">{{ cell }}</span>
-          <input *ngIf="editable" [(ngModel)]="block.rows[ri][ci]" placeholder="Cell" />
+          <input *ngIf="editable" [(ngModel)]="block.rows[ri][ci]" />
         </td>
         <td *ngIf="editable">
-          <button mat-mini-button color="warn" (click)="addTableRow.emit()">Add Row</button>
+          <button mat-button (click)="addTableRow.emit()">+ Row</button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Remove Block Button -->
-  <button *ngIf="editable" mat-icon-button color="warn" (click)="remove.emit()">
+  <!-- Image -->
+  <div *ngIf="block.type === 'image'" class="image-view">
+
+  <!-- 編集モード -->
+  <div *ngIf="editable">
+
+    <!-- プレビュー -->
+    <img *ngIf="block.url" [src]="block.url" class="image-preview" />
+
+    <!-- ファイルアップロードボタン -->
+    <input type="file"
+           accept="image/*"
+           (change)="onFileSelected($event)" />
+
+    <!-- キャプション編集 -->
+    <input matInput [(ngModel)]="block.caption" placeholder="Caption" />
+
+  </div>
+
+  <!-- 表示モード -->
+  <div *ngIf="!editable">
+    <img [src]="block.url" class="image-view" />
+    <p *ngIf="block.caption">{{ block.caption }}</p>
+  </div>
+
+</div>
+
+  <!-- Remove -->
+  <button *ngIf="editable"
+          mat-icon-button color="warn"
+          (click)="remove.emit()">
     <mat-icon>delete</mat-icon>
   </button>
 
 </div>
+

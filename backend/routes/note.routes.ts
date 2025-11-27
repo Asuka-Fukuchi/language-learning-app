@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { Note } from "../models/note.model";
 import { authMiddleware } from "../middleware/auth";
+import multer from "multer";
 
 const router = Router();
 export default router;
@@ -70,7 +71,7 @@ router.patch("/:id", authMiddleware, async (req, res) => {
     }
 
     delete req.body.creator;
-    const allowed = [ "noteTitle", "blocks" ];
+    const allowed = ["noteTitle", "blocks"];
 
     for (const key of allowed) {
       if (key in req.body) {
@@ -101,4 +102,26 @@ router.delete("/:id", authMiddleware, async (req, res) => {
   } catch (err: any) {
     return res.status(500).json({ error: err.message });
   }
+});
+
+
+const storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: (req: any, file: any, cb: any) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
+});
+
+// POST /notes/upload
+router.post('/upload', upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'Image file is required' });
+  }
+
+  const url = `http://localhost:3000/uploads/${req.file.filename}`;
+  res.json({ url });
 });

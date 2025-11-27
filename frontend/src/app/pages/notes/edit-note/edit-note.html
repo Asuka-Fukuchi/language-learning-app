@@ -1,93 +1,43 @@
 <div class="note-edit-container" *ngIf="!loading && note">
 
-    <div class="note-edit-header">
-        <button mat-icon-button (click)="goBack()">
-            <mat-icon>arrow_back</mat-icon>
-        </button>
-        <h2>Edit Note</h2>
-    </div>
+  <!-- Header -->
+  <div class="note-edit-header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Edit Note</h2>
+  </div>
 
-    <mat-form-field appearance="outline" class="full">
-        <mat-label>Note Title</mat-label>
-        <input matInput formControlName="noteTitle">
-    </mat-form-field>
+  <mat-form-field appearance="outline" class="full">
+    <mat-label>Note Title</mat-label>
+    <input matInput [(ngModel)]="note.noteTitle">
+  </mat-form-field>
 
-    <form [formGroup]="form">
+  <div class="note-content-card">
 
-        <div formArrayName="blocks">
-            <div *ngFor="let block of blocks.controls; let i = index" [formGroupName]="i"
-                class="block-card mat-elevation-z2">
+    <!-- note-block コンポーネントでブロックをレンダリング -->
+    <app-note-block
+      *ngFor="let block of note.blocks"
+      [block]="block"
+      [editable]="true"
+      (remove)="removeBlock(block)"
+      (imageSelected)="uploadImage(block, $event)">
+    </app-note-block>
 
-                <!-- TITLE / PARAGRAPH -->
-                <div *ngIf="isContentBlock(block.value)">
-                    <mat-form-field appearance="outline" class="full">
-                        <mat-label>{{ block.value.type | titlecase }}</mat-label>
-                        <textarea matInput formControlName="content" rows="3"></textarea>
-                    </mat-form-field>
-                </div>
+  </div>
 
-                <!-- LIST -->
-                <div *ngIf="isListBlock(block.value)">
-                    <h3>List Items</h3>
-                    <div formArrayName="items">
-                        <div *ngFor="let item of getBlockItems(i).controls; let j=index" class="list-item-row">
-                            <mat-form-field appearance="outline" class="full">
-                                <mat-label>Item {{ j+1 }}</mat-label>
-                                <input matInput [formControlName]="j">
-                            </mat-form-field>
-                            <button mat-icon-button color="warn" (click)="removeListItem(i, j)"
-                                *ngIf="getBlockItems(i).length > 1">
-                                <mat-icon>close</mat-icon>
-                            </button>
-                        </div>
-                        <button mat-button color="primary" (click)="addListItem(i)">+ Add Item</button>
-                    </div>
-                </div>
+  <div class="add-block-buttons">
+    <button mat-raised-button (click)="addBlock('title')">Title</button>
+    <button mat-raised-button (click)="addBlock('paragraph')">Paragraph</button>
+    <button mat-raised-button (click)="addBlock('list')">List</button>
+    <button mat-raised-button (click)="addBlock('table')">Table</button>
+    <button mat-raised-button (click)="addBlock('image')">Image</button>
+  </div>
 
-                <!-- TABLE -->
-                <div *ngIf="isTableBlock(block.value)">
-                    <h3>Table</h3>
-                    <div formArrayName="headers" class="table-headers">
-                        <div *ngFor="let header of getTableHeaders(i).controls; let j=index" class="table-header-row">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Header {{ j+1 }}</mat-label>
-                                <input matInput [formControlName]="j">
-                            </mat-form-field>
-                            <button mat-icon-button color="warn" (click)="removeTableHeader(i, j)"
-                                *ngIf="getTableHeaders(i).length > 1">
-                                <mat-icon>close</mat-icon>
-                            </button>
-                        </div>
-                        <button mat-button color="primary" (click)="addTableHeader(i)">+ Add Header</button>
-                    </div>
+  <div class="submit-box">
+    <button mat-raised-button color="primary" (click)="saveNote()">Save</button>
+  </div>
 
-                    <div formArrayName="rows" class="table-rows">
-                        <div *ngFor="let row of getTableRows(i).controls; let j=index" [formGroupName]="j"
-                            class="table-row">
-                            <div *ngFor="let cell of getTableRowControls(i, j); let k=index" class="table-cell">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Row {{ j+1 }} Cell {{ k+1 }}</mat-label>
-                                    <input matInput [formControl]="cell">
-                                </mat-form-field>
-                            </div>
-
-                            <button mat-icon-button color="warn" (click)="removeTableRow(i, j)"
-                                *ngIf="getTableRows(i).length > 1">
-                                <mat-icon>close</mat-icon>
-                            </button>
-                        </div>
-                        <button mat-button color="primary" (click)="addTableRow(i)">+ Add Row</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="submit-box">
-            <button mat-raised-button color="primary" (click)="saveNote()">Save</button>
-        </div>
-
-    </form>
 </div>
 
 <div *ngIf="loading">Loading note...</div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
-export type NoteBlockType = 'title' | 'paragraph' | 'list' | 'table';
+export type NoteBlockType = 'title' | 'paragraph' | 'list' | 'table' | 'image';
 
 // 各ブロックの構造
 export interface NoteBlockBase {
@@ -34,8 +34,14 @@ export interface TableBlock extends NoteBlockBase {
   rows: string[][];      // 行のデータ
 }
 
+export interface ImageBlock extends NoteBlockBase {
+  type: 'image';
+  url: string;
+  caption?: string;
+}
+
 // NoteBlock は上記のいずれか
-export type NoteBlock = TitleBlock | ParagraphBlock | ListBlock | TableBlock;
+export type NoteBlock = TitleBlock | ParagraphBlock | ListBlock | TableBlock | ImageBlock;
 
 // Note 全体
 export interface Note {
@@ -70,7 +76,7 @@ export class NoteService {
   }
 
   // Create a new word
-  createNote( newNote: Partial<Note>): Observable<Note> {
+  createNote(newNote: Partial<Note>): Observable<Note> {
     return this.http.post<Note>(`${this.apiUrl}`, newNote);
   }
 
@@ -86,5 +92,9 @@ export class NoteService {
   // Delete Word
   deleteNote(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  uploadImage(formData: FormData): Observable<{ url: string }> {
+    return this.http.post<{ url: string }>(`${this.apiUrl}/upload`, formData);
   }
 }

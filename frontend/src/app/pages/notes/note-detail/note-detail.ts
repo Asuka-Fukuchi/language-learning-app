@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NoteService, Note, NoteBlock } from '../../../services/note.service';
 import { MaterialModule } from '../../../material/material/material-module';
 import { MatChipsModule } from '@angular/material/chips'; 
+import { NoteBlockComponent } from '../../../components/notes/note-block/note-block';
 
 @Component({
   selector: 'app-note-detail',
-  imports: [ MaterialModule, MatChipsModule],
+  imports: [ MaterialModule, MatChipsModule, NoteBlockComponent],
   templateUrl: './note-detail.html',
   styleUrl: './note-detail.css',
 })

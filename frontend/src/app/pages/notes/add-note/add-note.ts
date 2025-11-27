@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NoteService, Note, NoteBlock, TitleBlock, ParagraphBlock, ListBlock, TableBlock } from '../../../services/note.service';
+import { NoteService, Note, NoteBlock, TitleBlock, ParagraphBlock, ListBlock, TableBlock, ImageBlock } from '../../../services/note.service';
 import { MaterialModule } from '../../../material/material/material-module';
+import { NoteBlockComponent } from '../../../components/notes/note-block/note-block';
 
 @Component({
   selector: 'app-add-note',
-  imports: [MaterialModule],
+  imports: [MaterialModule, NoteBlockComponent],
   templateUrl: './add-note.html',
   styleUrl: './add-note.css',
 })
@@ -22,7 +23,7 @@ export class AddNote {
   ) { }
 
   // ブロック追加
-  addBlock(type: 'title' | 'paragraph' | 'list' | 'table') {
+  addBlock(type: 'title' | 'paragraph' | 'list' | 'table' | 'image') {
     let newBlock: NoteBlock;
     switch (type) {
       case 'title':
@@ -37,6 +38,9 @@ export class AddNote {
       case 'table':
         newBlock = { type: 'table', headers: [''], rows: [['']] };
         break;
+      case 'image':
+        newBlock = { type: 'image', url: '', caption: '' };
+        break;
     }
     this.blocks.push(newBlock!);
   }
@@ -50,9 +54,9 @@ export class AddNote {
   }
 
   addTableRow(block: TableBlock) {
-  const newRow: string[] = block.headers.map(_ => '');
-  block.rows.push(newRow);
-}
+    const newRow: string[] = block.headers.map(_ => '');
+    block.rows.push(newRow);
+  }
 
   addTableColumn(block: TableBlock) {
     block.headers.push('');
@@ -72,43 +76,69 @@ export class AddNote {
     this.blocks.splice(index, 1);
   }
 
-  // ノート保存
-  saveNote() {
-  if (!this.noteTitle.trim()) {
-    this.error = 'Note title is required';
-    return;
+  uploadImage(block: NoteBlock, file: File) {
+    if (block.type !== 'image') return;
+
+    // 画像アップロード API へ送信
+    const formData = new FormData();
+    formData.append('image', file);
+
+    this.noteService.uploadImage(formData).subscribe({
+      next: (res) => {
+        block.url = res.url; // ← 保存用URLをセット
+        delete (block as any).file;
+      },
+      error: () => {
+        alert("Failed to upload image");
+      }
+    });
   }
 
-  // テーブルブロックを整形（undefined を空文字に変換）
-  const preparedBlocks = this.blocks.map(block => {
-    if (block.type === 'table') {
-      return {
-        ...block,
-        headers: block.headers?.map(h => h || '') || [''],
-        rows: block.rows?.map(row => row.map(cell => cell || '')) || [['']]
-      };
+  // ノート保存
+  saveNote() {
+    if (!this.noteTitle.trim()) {
+      this.error = 'Note title is required';
+      return;
     }
-    return block;
-  });
 
-  this.loading = true;
-  const newNote = {
-    noteTitle: this.noteTitle,
-    blocks: preparedBlocks
-  };
+    // テーブルブロックを整形（undefined を空文字に変換）
+    const preparedBlocks = this.blocks.map(block => {
+      if (block.type === 'table') {
+        return {
+          ...block,
+          headers: block.headers?.map(h => h || '') || [''],
+          rows: block.rows?.map(row => row.map(cell => cell || '')) || [['']]
+        };
+      } else if (block.type === 'image') {
+        const imageBlock: ImageBlock = {
+          type: 'image', // ← 'image' リテラルにすることが重要
+          url: block.url
+        };
+        return imageBlock;
+      }
+      return block;
+    });
 
-  console.log('Saving note:', JSON.stringify(newNote, null, 2));
+    this.loading = true;
+    const newNote = {
+      noteTitle: this.noteTitle,
+      blocks: preparedBlocks
+    };
 
-  this.noteService.createNote(newNote).subscribe({
-    next: (note) => this.router.navigate(['/notes', note._id]),
-    error: (err) => {
-      console.error(err);
-      this.error = 'Failed to create note';
-      this.loading = false;
-    }
-  });
-}
+    console.log('Saving note:', JSON.stringify(newNote, null, 2));
 
+    this.noteService.createNote(newNote).subscribe({
+      next: (note) => this.router.navigate(['/notes', note._id]),
+      error: (err) => {
+        console.error(err);
+        this.error = 'Failed to create note';
+        this.loading = false;
+      }
+    });
+  }
 
+  goBack() {
+    this.router.navigate(['/notes']);
+  }
 
 }

@@ -11,38 +11,13 @@
   <!-- Note Content -->
   <div class="note-content-card">
 
-    <div *ngFor="let block of note.blocks" class="note-block">
+    <!-- note-block コンポーネントを使用 -->
+    <app-note-block
+      *ngFor="let block of note.blocks"
+      [block]="block"
+      [editable]="false">
+    </app-note-block>
 
-      <!-- Title Block -->
-      <h3 *ngIf="block.type === 'title'" class="block-title">
-        {{ block.content }}
-      </h3>
-
-      <!-- Paragraph Block -->
-      <p *ngIf="block.type === 'paragraph'" class="block-paragraph">
-        {{ block.content }}
-      </p>
-
-      <!-- List Block -->
-      <ul *ngIf="block.type === 'list'" class="block-list">
-        <li *ngFor="let item of block.items">{{ item }}</li>
-      </ul>
-
-      <!-- Table Block -->
-      <table *ngIf="block.type === 'table'" class="block-table">
-        <thead>
-          <tr>
-            <th *ngFor="let header of block.headers">{{ header }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of block.rows">
-            <td *ngFor="let cell of row">{{ cell }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
   </div>
 
   <!-- Actions -->
