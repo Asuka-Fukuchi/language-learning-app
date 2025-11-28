@@ -4,7 +4,6 @@ import { authMiddleware } from "../middleware/auth";
 import multer from "multer";
 
 const router = Router();
-export default router;
 
 // Create a new word
 router.post("/", authMiddleware, async (req, res) => {
@@ -125,3 +124,5 @@ router.post('/upload', upload.single('image'), (req, res) => {
   const url = `http://localhost:3000/uploads/${req.file.filename}`;
   res.json({ url });
 });
+
+export default router;

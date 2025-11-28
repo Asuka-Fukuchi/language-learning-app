@@ -7,7 +7,7 @@ const router = Router();
 // Create a new word
 router.post("/", authMiddleware, async (req, res) => {
   try {
-    const { word, phoneticSymbols, type, partOfSpeech, meaning, examples, synonyms, antonyms, tags }
+    const { word, phoneticSymbols, type, partOfSpeech, meaning, examples, synonyms, antonyms }
       = req.body;
     const creator = req.user?.id;
 
@@ -26,7 +26,6 @@ router.post("/", authMiddleware, async (req, res) => {
       examples,
       synonyms,
       antonyms,
-      tags,
       creator
     });
 
@@ -80,7 +79,7 @@ router.patch("/:id", authMiddleware, async (req, res) => {
     const allowed = [
       "word", "phoneticSymbols", "type", "partOfSpeech",
       "meaning", "examples", "synonyms", "antonyms",
-      "tags", "spaced", "status"
+      "spaced", "status"
     ];
 
     for (const key of allowed) {

@@ -58,7 +58,7 @@ const WordSchema = new Schema<IWord>(
         spaced: {
             repetitions: { type: Number, default: 0 },
             interval: { type: Number, default: 0 },
-            nextReview: { type: Date },
+            nextReview: { type: Date, default: () => new Date() },
             easiness: { type: Number, default: 2.5 }
         },
         creator: { 

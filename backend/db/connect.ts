@@ -2,9 +2,6 @@ import mongoose from "mongoose";
 
 export async function connectDB() {
   try {
-    // TODO: delete when I submit app on the internet
-    console.log("🔹 MONGODB_URI:", process.env["MONGODB_URI"]);
-
     if (!process.env["MONGODB_URI"]) {
       throw new Error("MONGODB_URI is not defined in .env");
     }
@@ -16,6 +13,3 @@ export async function connectDB() {
     throw err;
   }
 }
-
-// DBへの接続はserver.tsに任せる
-// connectDB();

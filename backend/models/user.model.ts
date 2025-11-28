@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+// For future expansion
 export interface IUserList {
   listTitle: string;
   words: mongoose.Types.ObjectId[];
@@ -35,7 +36,7 @@ const userSchema = new Schema<IUser>({
   { timestamps: true }
 );
 
-// for security
+// For security
 userSchema.set("toJSON", {
   transform: (_doc, ret: any) => {
     const { password, __v, ...clean } = ret;
