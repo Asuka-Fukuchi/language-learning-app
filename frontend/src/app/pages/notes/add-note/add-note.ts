@@ -137,4 +137,8 @@ export class AddNote {
     this.router.navigate(['/notes']);
   }
 
+  cancel() {
+    this.router.navigate(['/notes']);
+  }
+
 }

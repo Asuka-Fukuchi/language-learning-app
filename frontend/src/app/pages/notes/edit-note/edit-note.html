@@ -16,12 +16,13 @@
   <div class="note-content-card">
 
     <!-- note-block -->
-    <app-note-block
-      *ngFor="let block of note.blocks"
-      [block]="block"
-      [editable]="true"
-      (remove)="removeBlock(block)"
-      (imageSelected)="uploadImage(block, $event)">
+    <app-note-block *ngFor="let block of note.blocks" [block]="block" [editable]="true" (remove)="removeBlock(block)"
+      (imageSelected)="uploadImage(block, $event)"
+      (addListItem)="block.type === 'list' ? addListItem(block) : null"
+      (addTableRow)="block.type === 'table' ? addTableRow(block) : null"
+      (addTableColumn)="block.type === 'table' ? addTableColumn(block) : null"
+      (imageSelected)="block.type === 'image' ? uploadImage(block, $event) : null"
+      >
     </app-note-block>
 
   </div>
@@ -36,8 +37,8 @@
 
   <div class="submit-box">
     <button mat-raised-button color="primary" (click)="saveNote()">Save</button>
+    <button mat-stroked-button type="button" (click)="cancel()">Cancel</button>
   </div>
-
 </div>
 
 <div *ngIf="loading">Loading note...</div>

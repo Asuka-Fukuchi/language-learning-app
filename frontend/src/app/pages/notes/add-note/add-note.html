@@ -33,6 +33,8 @@
     <button mat-raised-button (click)="addBlock('image')">Image</button>
   </div>
 
-  <button mat-raised-button color="primary" (click)="saveNote()">Save</button>
-
+  <div class="submit-box">
+    <button mat-raised-button color="primary" (click)="saveNote()">Save</button>
+    <button mat-stroked-button type="button" (click)="cancel()">Cancel</button>
+  </div>
 </div>

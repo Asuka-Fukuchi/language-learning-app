@@ -20,7 +20,7 @@ export class EditNote {
     private noteService: NoteService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     const noteId = this.route.snapshot.paramMap.get('id')!;
@@ -58,6 +58,33 @@ export class EditNote {
     this.note.blocks.push(newBlock);
   }
 
+  addListItem(block: ListBlock) {
+    block.items.push('');
+  }
+
+  removeListItem(block: ListBlock, index: number) {
+    block.items.splice(index, 1);
+  }
+
+  addTableRow(block: TableBlock) {
+    const newRow: string[] = block.headers.map(_ => '');
+    block.rows.push(newRow);
+  }
+
+  addTableColumn(block: TableBlock) {
+    block.headers.push('');
+    block.rows.forEach(row => row.push(''));
+  }
+
+  removeTableRow(block: TableBlock, index: number) {
+    block.rows.splice(index, 1);
+  }
+
+  removeTableColumn(block: TableBlock, index: number) {
+    block.headers.splice(index, 1);
+    block.rows.forEach(row => row.splice(index, 1));
+  }
+
   removeBlock(block: NoteBlock) {
     this.note.blocks = this.note.blocks.filter(b => b !== block);
   }
@@ -87,5 +114,9 @@ export class EditNote {
     } else {
       this.router.navigate(['/notes']);
     }
+  }
+
+  cancel() {
+    this.router.navigate(['/notes']);
   }
 }

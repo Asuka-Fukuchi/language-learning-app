@@ -1,59 +1,95 @@
-# LanguageLearningApp
+# Language Learning App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.1.
+## About
+My Language App is a language learning support application.
+It allows you to manage words and phrases, create notes, take quizzes, and track your progress with a dashboard.
 
-## Development server
+The frontend is built with Angular + Material, and the backend uses Node.js + Express + MongoDB.
+While it is designed for language learners, it can also be adapted for other learning purposes.
 
-To start a local development server, run:
+## Development Background
 
-```bash
-ng serve
+Although I have used many learning apps in the past, I could not find one that met my ideal requirements, so I decided to build my own.
+
+## Skills
+Frontend: Angular, Angular Material, TypeScript, HTML, CSS
+Backend: Node.js, Express, MongoDB (Mongoose)
+
+## Features
+- Add, edit, and delete words
+- Spaced repetition quizzes (based on the forgetting curve)
+- Note creation and block editing (paragraphs, lists, tables, images)
+- User registration, login, and logout
+- Dashboard to track progress for words and notes
+
+## Screenshots
+```markdown
+![Dashboard](../language-learning-app/frontend/public/images/dashboard-page.png)
+![WordList](../language-learning-app/frontend/public/images/word-list-page.png)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+## Project Structure
+```bush
+language-learning-app/
+├── backend/
+│   ├── db/                # Database connection
+│   │   └── connect.ts
+│   ├── middleware/        # Authentication, etc.
+│   │   └── auth.ts
+│   ├── models/            # Mongoose models
+│   │   ├── user.model.ts
+│   │   ├── word.model.ts
+│   │   └── note.model.ts
+│   ├── routes/            # API routes
+│   │   ├── user.routes.ts
+│   │   ├── word.routes.ts
+│   │   ├── note.routes.ts
+│   │   └── dashboard.routes.ts
+│   ├── .env               # Environment variables
+│   └── server.ts          # Entry point
+├── frontend/
+│   ├── public/
+│   ├── src/
+│       ├── app/
+│           ├── components/       # Footer, Header, Notes, etc.
+│           ├── core/             # Interceptors
+│           │   └── auth.interceptor.ts
+│           ├── material/         # Material module
+│           │   └── material-module.ts
+│           ├── pages/            # auth/, home/, notes/, quiz/, words/
+│           └── services/         # auth, home, note, quiz, user, word
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+## How to run
+1. Clone this repository
+```bush 
+git clone https://github.com/your-username/language-learning-app.git
+cd language-learning-app
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
+2. Install dependencies
+```bush 
+# Frontend
+cd frontend && npm install
+# Backend
+cd ../backend && npm install
+cd ..
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+3. Set environment variables
+```bush 
+MONGO_URI=your_mongodb_connection_string
+PORT=3000
+JWT_SECRET=your_secret_key
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+4. Start the development server
+```bush 
+npm run dev
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Future Improvements
+- Allow users to create custom word lists for focused study
+- Expand quiz formats (multiple choice, input, flip, time-limited)
+- Add pronunciation verification
+- Display news articles or other sources to expose users to new words
