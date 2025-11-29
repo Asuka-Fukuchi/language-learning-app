@@ -12,8 +12,8 @@ While it is designed for language learners, it can also be adapted for other lea
 Although I have used many learning apps in the past, I could not find one that met my ideal requirements, so I decided to build my own.
 
 ## Skills
-Frontend: Angular, Angular Material, TypeScript, HTML, CSS
-Backend: Node.js, Express, MongoDB (Mongoose)
+<strong>Frontend:</strong> Angular, Angular Material, TypeScript, HTML, CSS  
+<strong>Backend:</strong> Node.js, Express, MongoDB (Mongoose)
 
 ## Features
 - Add, edit, and delete words
@@ -26,6 +26,7 @@ Backend: Node.js, Express, MongoDB (Mongoose)
 ```markdown
 ![Dashboard](../language-learning-app/frontend/public/images/dashboard-page.png)
 ![WordList](../language-learning-app/frontend/public/images/word-list-page.png)
+![NoteDetail](../language-learning-app/frontend/public/images/note-detail.png)
 ```
 
 ## Project Structure
