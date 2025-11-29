@@ -31,8 +31,11 @@ Although I have used many learning apps in the past, I could not find one that m
 ---
 
 ## Screenshots
+Dashboard page
 ![Dashboard](frontend/public/images/dashboard-page.png)
+Word List page
 ![WordList](frontend/public/images/word-list-page.png)
+Note Detail page
 ![NoteDetail](frontend/public/images/note-detail-page.png)
 
 ---
