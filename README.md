@@ -23,11 +23,9 @@ Although I have used many learning apps in the past, I could not find one that m
 - Dashboard to track progress for words and notes
 
 ## Screenshots
-```markdown
 ![Dashboard](../language-learning-app/frontend/public/images/dashboard-page.png)
 ![WordList](../language-learning-app/frontend/public/images/word-list-page.png)
-![NoteDetail](../language-learning-app/frontend/public/images/note-detail.png)
-```
+![NoteDetail](../language-learning-app/frontend/public/images/note-detail-page.png)
 
 ## Project Structure
 ```bush
