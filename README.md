@@ -31,9 +31,9 @@ Although I have used many learning apps in the past, I could not find one that m
 ---
 
 ## Screenshots
-![Dashboard](../language-learning-app/frontend/public/images/dashboard-page.png)
-![WordList](../language-learning-app/frontend/public/images/word-list-page.png)
-![NoteDetail](../language-learning-app/frontend/public/images/note-detail-page.png)
+![Dashboard](frontend/public/images/dashboard-page.png)
+![WordList](frontend/public/images/word-list-page.png)
+![NoteDetail](frontend/public/images/note-detail-page.png)
 
 ---
 
