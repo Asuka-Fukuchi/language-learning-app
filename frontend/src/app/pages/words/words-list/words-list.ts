@@ -32,13 +32,12 @@ export class WordsList {
         this.dataSource.filterPredicate = (data: Word, filter: string) => {
           const f = JSON.parse(filter);
 
-          // search = word, meaning を含むか
           const matchSearch =
             !f.search ||
             data.word.toLowerCase().includes(f.search) ||
             data.meaning.toLowerCase().includes(f.search);
 
-          // POS フィルタ
+          // POS filter
           const matchPos =
             !f.partOfSpeech ||
             data.partOfSpeech === f.partOfSpeech;
@@ -47,7 +46,7 @@ export class WordsList {
             !f.type ||
             data.type === f.type;
 
-          // status フィルタ
+          // status filter
           const matchStatus =
             !f.status ||
             data.status === f.status;

@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NoteService, Note, NoteBlock } from '../../../services/note.service';
 import { MaterialModule } from '../../../material/material/material-module';
-import { MatChipsModule } from '@angular/material/chips'; 
 import { NoteBlockComponent } from '../../../components/notes/note-block/note-block';
 
 @Component({
   selector: 'app-note-detail',
-  imports: [ MaterialModule, MatChipsModule, NoteBlockComponent],
+  imports: [ MaterialModule,  NoteBlockComponent],
   templateUrl: './note-detail.html',
   styleUrl: './note-detail.css',
 })
@@ -63,7 +62,7 @@ export class NoteDetail {
     this.noteService.deleteNote(this.note._id).subscribe({
       next: () => {
         alert('Note deleted');
-        this.router.navigate(['/notes']); // 一覧ページへ戻す
+        this.router.navigate(['/notes']); 
       },
       error: (err) => {
         console.error(err);

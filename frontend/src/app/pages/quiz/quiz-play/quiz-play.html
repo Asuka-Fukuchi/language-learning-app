@@ -47,25 +47,25 @@
   </mat-card>
 
   <mat-table [dataSource]="results" class="mat-elevation-z8 full-width">
-    <!-- 単語列 -->
+    <!-- words -->
     <ng-container matColumnDef="word">
       <mat-header-cell *matHeaderCellDef> Word </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.word }} </mat-cell>
     </ng-container>
 
-    <!-- 意味列 -->
+    <!-- meaning -->
     <ng-container matColumnDef="meaning">
       <mat-header-cell *matHeaderCellDef> Meaning </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.meaning }} </mat-cell>
     </ng-container>
 
-    <!-- ユーザー回答列 -->
+    <!-- User's answer -->
     <ng-container matColumnDef="userAnswer">
       <mat-header-cell *matHeaderCellDef> Your answer </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.userAnswer }} </mat-cell>
     </ng-container>
 
-    <!-- 正誤列 -->
+    <!-- isCorrect -->
     <ng-container matColumnDef="correct">
       <mat-header-cell *matHeaderCellDef> Result </mat-header-cell>
       <mat-cell *matCellDef="let element">

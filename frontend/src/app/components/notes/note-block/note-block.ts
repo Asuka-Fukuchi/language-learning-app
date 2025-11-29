@@ -22,15 +22,6 @@ export class NoteBlockComponent {
     this.block.content = event.target.innerText;
   }
 
-  onImageSelect(event: any) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => this.imageUploaded.emit(reader.result as string);
-    reader.readAsDataURL(file);
-  }
-
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
@@ -38,7 +29,6 @@ export class NoteBlockComponent {
     const file = input.files[0];
     this.imageSelected.emit(file);
 
-    // ローカルプレビュー
     const reader = new FileReader();
     reader.onload = () => {
       this.block.url = reader.result as string;

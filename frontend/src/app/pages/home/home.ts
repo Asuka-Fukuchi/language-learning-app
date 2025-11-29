@@ -5,19 +5,19 @@ import { MaterialModule } from '../../material/material/material-module';
 
 @Component({
   selector: 'app-home',
-  imports: [ MaterialModule ],
+  imports: [MaterialModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
-loading = true;
+  loading = true;
   error = '';
   data: DashboardPayload | null = null;
 
   constructor(
-    private dash: DashboardService, 
+    private dash: DashboardService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.load();
@@ -26,6 +26,7 @@ loading = true;
   load() {
     this.loading = true;
     this.error = '';
+
     this.dash.getDashboard().subscribe({
       next: (res) => {
         this.data = res;
@@ -33,6 +34,12 @@ loading = true;
       },
       error: (err) => {
         console.error('Dashboard load error', err);
+
+        if (err.status === 401) {
+          this.router.navigate(['/login']);
+          return;
+        }
+        
         this.error = err?.error?.error || err?.message || 'Failed to load dashboard';
         this.loading = false;
       }

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { User } from "../models/user.model";
 import { Word } from "../models/word.model";
+
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
@@ -128,8 +129,8 @@ router.patch("/:id", authMiddleware, async (req, res) => {
         const updates: any = { ...req.body };
         // Prevent accidental changes
         delete updates._id;
-        delete updates.email; // optionally prevent email change here; or allow with verification flow
-        delete updates.isAdmin; // prevent privilege escalation
+        delete updates.email; 
+        delete updates.isAdmin; 
 
         if (updates.password) {
             updates.password = await bcrypt.hash(updates.password, 10);

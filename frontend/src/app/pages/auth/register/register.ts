@@ -4,8 +4,6 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
   Validators,
@@ -18,7 +16,7 @@ import { Word } from '../../../services/word.service';
 
 @Component({
   selector: 'app-register',
-  imports: [MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [ MaterialModule ],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })

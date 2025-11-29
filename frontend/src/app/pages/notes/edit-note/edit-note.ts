@@ -36,7 +36,6 @@ export class EditNote {
     });
   }
 
-  // ブロック追加
   addBlock(type: NoteBlockType) {
     let newBlock: NoteBlock;
     switch (type) {
@@ -59,12 +58,10 @@ export class EditNote {
     this.note.blocks.push(newBlock);
   }
 
-  // ブロック削除
   removeBlock(block: NoteBlock) {
     this.note.blocks = this.note.blocks.filter(b => b !== block);
   }
 
-  // 画像アップロード
   uploadImage(block: NoteBlock, file: File) {
     if (block.type !== 'image') return;
 

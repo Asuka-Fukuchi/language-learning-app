@@ -5,7 +5,7 @@ import multer from "multer";
 
 const router = Router();
 
-// Create a new word
+// Create a new note
 router.post("/", authMiddleware, async (req, res) => {
   try {
     const { noteTitle, blocks } = req.body;
@@ -31,7 +31,7 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
-// Get all Words
+// Get all note
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const filter = { creator: req.user!.id };
@@ -42,7 +42,7 @@ router.get("/", authMiddleware, async (req, res) => {
   }
 });
 
-// Get Single Word by Id
+// Get Single note by Id
 router.get("/:id", authMiddleware, async (req, res) => {
   try {
     const note = await Note.findById(req.params["id"]);
@@ -59,7 +59,7 @@ router.get("/:id", authMiddleware, async (req, res) => {
   }
 });
 
-// Update word
+// Update note
 router.patch("/:id", authMiddleware, async (req, res) => {
   try {
     const note = await Note.findById(req.params["id"]);
@@ -79,13 +79,13 @@ router.patch("/:id", authMiddleware, async (req, res) => {
     }
 
     await note.save();
-    return res.status(200).json({ message: "Word updated successfully", note });
+    return res.status(200).json({ message: "Note updated successfully", note });
   } catch (err: any) {
     return res.status(500).json({ error: err.message });
   }
 });
 
-// Delete Word
+// Delete note
 router.delete("/:id", authMiddleware, async (req, res) => {
   try {
     const note = await Note.findById(req.params["id"]);

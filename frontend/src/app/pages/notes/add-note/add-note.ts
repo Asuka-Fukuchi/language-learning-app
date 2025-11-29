@@ -22,7 +22,6 @@ export class AddNote {
     private router: Router
   ) { }
 
-  // ブロック追加
   addBlock(type: 'title' | 'paragraph' | 'list' | 'table' | 'image') {
     let newBlock: NoteBlock;
     switch (type) {
@@ -79,13 +78,12 @@ export class AddNote {
   uploadImage(block: NoteBlock, file: File) {
     if (block.type !== 'image') return;
 
-    // 画像アップロード API へ送信
     const formData = new FormData();
     formData.append('image', file);
 
     this.noteService.uploadImage(formData).subscribe({
       next: (res) => {
-        block.url = res.url; // ← 保存用URLをセット
+        block.url = res.url; 
         delete (block as any).file;
       },
       error: () => {
@@ -94,14 +92,12 @@ export class AddNote {
     });
   }
 
-  // ノート保存
   saveNote() {
     if (!this.noteTitle.trim()) {
       this.error = 'Note title is required';
       return;
     }
 
-    // テーブルブロックを整形（undefined を空文字に変換）
     const preparedBlocks = this.blocks.map(block => {
       if (block.type === 'table') {
         return {
@@ -111,7 +107,7 @@ export class AddNote {
         };
       } else if (block.type === 'image') {
         const imageBlock: ImageBlock = {
-          type: 'image', // ← 'image' リテラルにすることが重要
+          type: 'image', 
           url: block.url
         };
         return imageBlock;

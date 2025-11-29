@@ -4,34 +4,34 @@ import { map, Observable } from 'rxjs';
 
 export type NoteBlockType = 'title' | 'paragraph' | 'list' | 'table' | 'image';
 
-// 各ブロックの構造
+// block structure
 export interface NoteBlockBase {
   type: NoteBlockType;
 }
 
-// タイトルブロック
+// title
 export interface TitleBlock extends NoteBlockBase {
   type: 'title';
-  content: string;       // タイトル文字列
+  content: string;       
 }
 
-// 段落ブロック
+// paragraph
 export interface ParagraphBlock extends NoteBlockBase {
   type: 'paragraph';
-  content: string;       // 段落本文
+  content: string;       
 }
 
-// リストブロック
+// list
 export interface ListBlock extends NoteBlockBase {
   type: 'list';
-  items: string[];       // 箇条書きの項目
+  items: string[];       
 }
 
-// 表ブロック
+// table
 export interface TableBlock extends NoteBlockBase {
   type: 'table';
-  headers: string[];     // 列名
-  rows: string[][];      // 行のデータ
+  headers: string[];     // header
+  rows: string[][];      // data
 }
 
 export interface ImageBlock extends NoteBlockBase {
@@ -40,14 +40,13 @@ export interface ImageBlock extends NoteBlockBase {
   caption?: string;
 }
 
-// NoteBlock は上記のいずれか
 export type NoteBlock = TitleBlock | ParagraphBlock | ListBlock | TableBlock | ImageBlock;
 
-// Note 全体
+// Note 
 export interface Note {
   _id?: string;
-  noteTitle: string;     // ノート全体のタイトル
-  blocks: NoteBlock[];   // ブロック単位で内容を管理
+  noteTitle: string;    
+  blocks: NoteBlock[];   
   creator: string;
 }
 
@@ -60,27 +59,27 @@ export class NoteService {
 
   constructor(private http: HttpClient) { }
 
-  // Get all Words
+  // Get all Notes
   getNotes(): Observable<Note[]> {
     return this.http.get<Note[]>(this.apiUrl);
   }
 
-  // Get User's words
+  // Get User's Notes
   getUserNotes(): Observable<Note[]> {
     return this.http.get<Note[]>(this.apiUrl);
   }
 
-  // Get Single Word by Id
+  // Get Single Note by Id
   getNoteById(id: string): Observable<Note> {
     return this.http.get<Note>(`${this.apiUrl}/${id}`);
   }
 
-  // Create a new word
+  // Create a new Note
   createNote(newNote: Partial<Note>): Observable<Note> {
     return this.http.post<Note>(`${this.apiUrl}`, newNote);
   }
 
-  // Update word
+  // Update Note
   updateNote(id: string, updates: Partial<Note>): Observable<Note> {
     return this.http
       .patch<{ message: string; note?: Note }>(
@@ -89,7 +88,7 @@ export class NoteService {
       .pipe(map((res) => res.note ?? (res as any)));
   }
 
-  // Delete Word
+  // Delete Note
   deleteNote(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }

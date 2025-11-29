@@ -3,8 +3,6 @@ import { MaterialModule } from '../../../material/material/material-module';
 import {
   FormControl,
   FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,7 +11,7 @@ import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [MaterialModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -32,6 +30,7 @@ export class Login {
   });
 
   constructor(
+    private router: Router,
     private authService: AuthService,
     private userService: UserService,
     private cd: ChangeDetectorRef
@@ -64,7 +63,7 @@ export class Login {
     this.userService.loginUser(credentials).subscribe({
       next: (res) => {
         this.authService.login(res.token, res.user);
-        window.location.href = '/dashboard';
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.errorMessage = 'Invalid email or password.';

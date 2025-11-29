@@ -12,9 +12,7 @@ export class QuizService {
   constructor(
     private wordService: WordService
   ) { }
-  // ============================================================
-  // 1. 記憶ベース（Spaced）クイズ
-  // ============================================================
+  // Spaced Quiz
   getSpacedQuizWords(userId: string, limit: number): Observable<Word[]> {
     const today = new Date();
 
@@ -30,9 +28,7 @@ export class QuizService {
     );
   }
 
-  // ============================================================
-  // 2. フィルタークイズ
-  // ============================================================
+  // Filter quiz
   getFilteredQuizWords(
     userId: string,
     filters: {
@@ -65,9 +61,7 @@ export class QuizService {
     );
   }
 
-  // ============================================================
-  // 3. 完全ランダムクイズ
-  // ============================================================
+  // Random quiz
   getRandomQuizWords(userId: string, limit: number = 20): Observable<Word[]> {
     return this.wordService.getUserWords(userId).pipe(
       map(words => {
@@ -86,9 +80,7 @@ export class QuizService {
     return words.slice(0, count);
   }
 
-  // ============================================================
-  // Spaced（忘却曲線）アルゴリズム
-  // ============================================================
+  // Spaced
   updateSpaced(spaced: ISpaced | undefined, isCorrect: boolean): ISpaced {
     if (!spaced) {
       spaced = {
@@ -120,9 +112,7 @@ export class QuizService {
     };
   }
 
-  // ============================================================
-  // 回答処理（どの出題方式でも spaced を更新）
-  // ============================================================
+  // Answer handling
   processQuizAnswer(word: Word, isCorrect: boolean, mode: 'spaced' | 'filter' | 'random'): Observable<Word> {
     let updatedSpaced = word.spaced;
 
@@ -137,11 +127,10 @@ export class QuizService {
       } else if (updatedSpaced.interval >= 14) {
         newStatus = 'almost';
       } else {
-        newStatus = isCorrect ? 'almost' : 'notYet';
+        newStatus = 'notYet';
       }
     } else {
-      // spaced 以外のクイズならステータスは変えない or 任意で設定
-      newStatus = isCorrect ? 'almost' : 'notYet';
+      newStatus = 'notYet';
     }
 
     return this.wordService.updateWord(word._id!, {

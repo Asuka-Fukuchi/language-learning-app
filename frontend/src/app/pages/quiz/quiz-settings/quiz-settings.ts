@@ -23,7 +23,7 @@ export class QuizSettings {
     "word", "idiom", "structure", "phrase"
   ];
 
-  // フィルター用
+  // Filter
   selectedStatuses: WordStatus[] = [];
   selectedTypes: WordType[] = [];
 
@@ -41,7 +41,7 @@ export class QuizSettings {
       }
     };
 
-    // 設定をクイズ画面へ渡す
+    // Sent quiz mode to play 
     this.router.navigate(['/quiz/play'], {
       state: settings
     });

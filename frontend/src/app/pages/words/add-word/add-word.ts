@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MaterialModule } from '../../../material/material/material-module';
 import { Word, WordService } from '../../../services/word.service';
 
 @Component({
   selector: 'app-add-word',
-  imports: [ MaterialModule, FormsModule, ReactiveFormsModule ],
+  imports: [ MaterialModule ],
   templateUrl: './add-word.html',
   styleUrl: './add-word.css',
 })
@@ -80,8 +80,7 @@ export class AddWord {
     if (this.form.invalid) return;
 
     const word: Word = {
-      ...this.form.value,
-      creator: "TODO_user_id_here"  // 後でログイン情報を設定
+      ...this.form.value  
     };
 
     word.examples = word.examples.filter((x: string) => x.trim() !== '');

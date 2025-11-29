@@ -14,7 +14,10 @@ export class AuthService {
   currentUser$ = this.currentUser.asObservable();
   private logoutTimer: any;
 
-  constructor( private http: HttpClient, private router: Router){
+  constructor( 
+    private http: HttpClient, 
+    private router: Router
+  ){
     this.restoreUser();
   }
 
@@ -110,6 +113,5 @@ export class AuthService {
   currentUserSnapshot(): User | null {
     return this.currentUser.value;
   }
-
-  
+ 
 }

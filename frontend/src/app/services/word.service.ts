@@ -55,7 +55,7 @@ export class WordService {
 
   // Get User's words
   getUserWords(userId: string): Observable<Word[]> {
-    return this.http.get<Word[]>(`http://localhost:3000/words?creator=${userId}`);
+    return this.http.get<Word[]>(`${this.apiUrl}?creator=${userId}`);
   }
 
   // Get Single Word by Id
