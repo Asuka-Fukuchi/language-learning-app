@@ -7,13 +7,19 @@ It allows you to manage words and phrases, create notes, take quizzes, and track
 The frontend is built with Angular + Material, and the backend uses Node.js + Express + MongoDB.
 While it is designed for language learners, it can also be adapted for other learning purposes.
 
+---
+
 ## Development Background
 
 Although I have used many learning apps in the past, I could not find one that met my ideal requirements, so I decided to build my own.
 
+---
+
 ## Skills
 <strong>Frontend:</strong> Angular, Angular Material, TypeScript, HTML, CSS  
 <strong>Backend:</strong> Node.js, Express, MongoDB (Mongoose)
+
+---
 
 ## Features
 - Add, edit, and delete words
@@ -22,10 +28,14 @@ Although I have used many learning apps in the past, I could not find one that m
 - User registration, login, and logout
 - Dashboard to track progress for words and notes
 
+---
+
 ## Screenshots
 ![Dashboard](../language-learning-app/frontend/public/images/dashboard-page.png)
 ![WordList](../language-learning-app/frontend/public/images/word-list-page.png)
 ![NoteDetail](../language-learning-app/frontend/public/images/note-detail-page.png)
+
+---
 
 ## Project Structure
 ```bush
@@ -59,6 +69,8 @@ language-learning-app/
 │           └── services/         # auth, home, note, quiz, user, word
 ```
 
+---
+
 ## How to run
 1. Clone this repository
 ```bush 
@@ -86,6 +98,8 @@ JWT_SECRET=your_secret_key
 ```bush 
 npm run dev
 ```
+
+---
 
 ## Future Improvements
 - Allow users to create custom word lists for focused study
