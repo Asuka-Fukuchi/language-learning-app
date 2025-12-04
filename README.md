@@ -1,17 +1,17 @@
 # Language Learning App
 
 ## About
-My Language App is a language learning support application.
-It allows you to manage words and phrases, create notes, take quizzes, and track your progress with a dashboard.
+A full-stack language-learning support app that helps users study vocabulary, take quizzes, write notes, and track their progress. Built with Angular, Node.js, and MongoDB.
 
-The frontend is built with Angular + Material, and the backend uses Node.js + Express + MongoDB.
-While it is designed for language learners, it can also be adapted for other learning purposes.
+While built for language learners, the structure allows adaptation for other study purposes as well.
 
 ---
 
-## Development Background
+## Why I Built This
 
-Although I have used many learning apps in the past, I could not find one that met my ideal requirements, so I decided to build my own.
+After using many learning apps, I could not find one that matched the workflow I wanted.
+To solve this, I designed and built my own learning tool from scratch.  
+It is currently an MVP — functional but still under active improvement.
 
 ---
 
@@ -25,22 +25,24 @@ Although I have used many learning apps in the past, I could not find one that m
 - Add, edit, and delete words
 - Spaced repetition quizzes (based on the forgetting curve)
 - Note creation and block editing (paragraphs, lists, tables, images)
-- User registration, login, and logout
-- Dashboard to track progress for words and notes
+- User authentication (register, login, logout)
+- Dashboard to track learning progress
 
 ---
 
 ## Screenshots
-Dashboard page
+### Dashboard page
 ![Dashboard](frontend/public/images/dashboard-page.png)
-Word List page
+### Word List page
 ![WordList](frontend/public/images/word-list-page.png)
-Note Detail page
+N### ote Detail page
 ![NoteDetail](frontend/public/images/note-detail-page.png)
 
 ---
 
 ## Project Structure
+The project is divided into a backend (Express + MongoDB) and a frontend (Angular). The structure follows common best practices such as separating routes, services, and models.
+
 ```bush
 language-learning-app/
 ├── backend/
@@ -109,3 +111,8 @@ npm run dev
 - Expand quiz formats (multiple choice, input, flip, time-limited)
 - Add pronunciation verification
 - Display news articles or other sources to expose users to new words
+
+## What I learned
+- The challenge of evolving frontend ideas while maintaining backend consistency
+- How to iteratively adjust API design and UI/UX during development
+- Improved full-stack development workflow through trial and error
