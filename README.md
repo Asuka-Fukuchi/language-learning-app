@@ -35,7 +35,7 @@ It is currently an MVP — functional but still under active improvement.
 ![Dashboard](frontend/public/images/dashboard-page.png)
 ### Word List page
 ![WordList](frontend/public/images/word-list-page.png)
-N### ote Detail page
+### Note Detail page
 ![NoteDetail](frontend/public/images/note-detail-page.png)
 
 ---
